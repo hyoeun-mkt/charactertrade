@@ -90,13 +90,11 @@
       font-size: 28px;
       line-height: 1.25;
       letter-spacing: -0.03em;
-      word-break: keep-all;
     }
     .section .desc {
       margin: 0;
       color: #4b5563;
       font-size: 15px;
-      word-break: keep-all;
     }
     .key-box {
       margin-top: 18px;
@@ -106,7 +104,15 @@
       border: 1px solid #bfdbfe;
       font-weight: 700;
       color: #1e3a8a;
-      word-break: keep-all;
+    }
+    .mini-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 13px;
     }
     .grid-2 {
       display: grid;
@@ -132,13 +138,11 @@
       font-size: 20px;
       letter-spacing: -0.02em;
       line-height: 1.35;
-      word-break: keep-all;
     }
     .box p {
       margin: 0;
       color: #4b5563;
       font-size: 14px;
-      word-break: keep-all;
     }
     .tag {
       display: inline-block;
@@ -152,6 +156,7 @@
     .tag.green { background: #dcfce7; color: #15803d; }
     .tag.amber { background: #fef3c7; color: #b45309; }
     .tag.red { background: #fee2e2; color: #dc2626; }
+    .tag.navy { background: #e2e8f0; color: #0f172a; }
     .roadmap {
       margin-top: 22px;
       display: grid;
@@ -188,7 +193,6 @@
       font-size: 22px;
       letter-spacing: -0.02em;
       line-height: 1.35;
-      word-break: keep-all;
     }
     .roadmap-item ul,
     .box ul,
@@ -222,21 +226,14 @@
       padding: 14px 12px;
       text-align: left;
       vertical-align: top;
-      word-break: keep-all;
     }
     th {
       background: #f8fafc;
       font-weight: 800;
       color: #111827;
     }
-    .point {
-      color: #1d4ed8;
-      font-weight: 700;
-    }
-    .warn {
-      color: #dc2626;
-      font-weight: 700;
-    }
+    .point { color: #1d4ed8; font-weight: 700; }
+    .warn { color: #dc2626; font-weight: 700; }
     .footer-note {
       margin-top: 18px;
       padding: 16px 18px;
@@ -245,7 +242,6 @@
       border: 1px dashed #cbd5e1;
       color: #475569;
       font-size: 13px;
-      word-break: keep-all;
     }
     @media (max-width: 1024px) {
       .summary-grid, .grid-3, .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -255,160 +251,41 @@
     @media (max-width: 768px) {
       body { padding: 0; }
       .wrap { padding: 16px 12px 40px; }
-      .hero, .section {
-        padding: 20px 16px;
-        border-radius: 18px;
-      }
-      .hero h1 {
-        font-size: 28px;
-        line-height: 1.28;
-      }
-      .hero p,
-      .section .desc,
-      .box p,
-      .roadmap-item ul,
-      .box ul,
-      .section ul {
-        font-size: 14px;
-        line-height: 1.7;
-      }
-      .section h2 {
-        font-size: 24px;
-        line-height: 1.32;
-      }
+      .hero, .section { padding: 20px 16px; border-radius: 18px; }
+      .hero h1 { font-size: 28px; line-height: 1.28; }
+      .hero p, .section .desc, .box p, .roadmap-item ul, .box ul, .section ul { font-size: 14px; line-height: 1.7; }
+      .section h2 { font-size: 24px; line-height: 1.32; }
       .summary-grid, .grid-3, .grid-2 { grid-template-columns: 1fr; }
-      .summary-card {
-        padding: 16px;
-        border-radius: 16px;
-      }
+      .summary-card { padding: 16px; border-radius: 16px; }
       .summary-card .value { font-size: 20px; }
-      .box {
-        padding: 18px 16px;
-        border-radius: 16px;
-      }
-      .box h3 {
-        font-size: 18px;
-      }
-      .roadmap-item {
-        grid-template-columns: 1fr;
-        padding: 16px;
-        border-radius: 16px;
-      }
-      .roadmap-item h3 {
-        font-size: 20px;
-      }
-      .phase {
-        width: 100%;
-        border-radius: 12px;
-      }
-      .tag {
-        font-size: 11px;
-        padding: 5px 9px;
-      }
-      .table-wrap {
-        border-radius: 16px;
-      }
-      table {
-        min-width: 760px;
-        font-size: 13px;
-      }
-      th, td {
-        padding: 12px 10px;
-      }
-      .key-box,
-      .footer-note {
-        padding: 14px 15px;
-        font-size: 13px;
-        line-height: 1.7;
-      }
+      .box { padding: 18px 16px; border-radius: 16px; }
+      .box h3 { font-size: 18px; }
+      .roadmap-item { grid-template-columns: 1fr; padding: 16px; border-radius: 16px; }
+      .roadmap-item h3 { font-size: 20px; }
+      .phase { width: 100%; border-radius: 12px; }
+      .tag { font-size: 11px; padding: 5px 9px; }
+      .table-wrap { border-radius: 16px; }
+      table { min-width: 760px; font-size: 13px; }
+      th, td { padding: 12px 10px; }
+      .key-box, .footer-note, .mini-note { padding: 14px 15px; font-size: 13px; line-height: 1.7; }
     }
     @media print {
-      @page {
-        size: A4;
-        margin: 12mm;
-      }
-      body {
-        background: #fff;
-        color: #000;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      .wrap {
-        max-width: 100%;
-        padding: 0;
-      }
-      .hero, .section, .roadmap-item, .box {
-        box-shadow: none;
-      }
-      .hero {
-        padding: 20px;
-        border-radius: 14px;
-      }
-      .hero h1 {
-        font-size: 24px;
-      }
-      .hero p,
-      .section .desc,
-      .box p,
-      .roadmap-item ul,
-      .box ul,
-      .section ul,
-      th,
-      td {
-        font-size: 12px;
-        line-height: 1.55;
-      }
-      .summary-grid,
-      .grid-3,
-      .grid-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-      .summary-card,
-      .box,
-      .roadmap-item,
-      .section,
-      .key-box,
-      .footer-note,
-      table,
-      thead,
-      tbody,
-      tr,
-      th,
-      td {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      .section {
-        margin-top: 14px;
-        padding: 16px;
-        border-radius: 14px;
-      }
-      .roadmap {
-        gap: 10px;
-      }
-      .roadmap-item {
-        grid-template-columns: 110px minmax(0, 1fr);
-        gap: 12px;
-        padding: 14px;
-      }
-      .phase {
-        padding: 10px;
-        border-radius: 10px;
-      }
-      .table-wrap {
-        overflow: visible;
-        border: 0;
-        border-radius: 0;
-      }
-      table {
-        min-width: 100%;
-        table-layout: auto;
-        font-size: 11px;
-      }
-      th, td {
-        padding: 8px 7px;
-      }
+      @page { size: A4; margin: 12mm; }
+      body { background: #fff; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .wrap { max-width: 100%; padding: 0; }
+      .hero, .section, .roadmap-item, .box { box-shadow: none; }
+      .hero { padding: 20px; border-radius: 14px; }
+      .hero h1 { font-size: 24px; }
+      .hero p, .section .desc, .box p, .roadmap-item ul, .box ul, .section ul, th, td { font-size: 12px; line-height: 1.55; }
+      .summary-grid, .grid-3, .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .summary-card, .box, .roadmap-item, .section, .key-box, .footer-note, .mini-note, table, thead, tbody, tr, th, td { break-inside: avoid; page-break-inside: avoid; }
+      .section { margin-top: 14px; padding: 16px; border-radius: 14px; }
+      .roadmap { gap: 10px; }
+      .roadmap-item { grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 14px; }
+      .phase { padding: 10px; border-radius: 10px; }
+      .table-wrap { overflow: visible; border: 0; border-radius: 0; }
+      table { min-width: 100%; table-layout: auto; font-size: 11px; }
+      th, td { padding: 8px 7px; }
     }
   </style>
 </head>
@@ -441,7 +318,7 @@
     <section class="section">
       <h2>1. 추진 배경 및 핵심 방향</h2>
       <p class="desc">본 과제의 목적은 기존 계정 거래 페이지의 단순 상품 나열 구조를 구매 판단을 돕는 인사이트형 구조로 전환하여, 거래 전환율과 시장 신뢰도를 동시에 높이는 것입니다.</p>
-      <div class="key-box">기존 플랫폼이 ‘상품 나열’에 머물렀다면, 본 구조는 ‘상품 + 해석 + 판단’을 제공하여 구매자는 판단 가능성을 얻고, 판매자는 가격 교정 기준을 얻으며, 플랫폼은 신뢰를 확보하는 방향으로 설계해야 합니다.</div>
+      <div class="key-box">기존 플랫폼이 ‘상품 나열’에 머물렀다면, 본 구조는 ‘상품 + 해석 + 판단’을 제공하여 구매자는 판단 가능성을 얻고, 판매자는 가격 교정 기준을 얻으며, 플랫폼은 신뢰를 확보하는 방향으로 설계해야 합니다. 또한 프로토타입을 기반으로 실제 서비스 수준까지 정교화하고, 게임마스터 점검을 포함한 검증 구조를 반드시 갖춰야 합니다.</div>
       <div class="grid-3">
         <div class="box">
           <span class="tag blue">핵심 인식 전환</span>
@@ -459,6 +336,7 @@
           <p>AI 자체를 전면에 내세우기보다 가격·구성·근거·리스크를 짧고 확신형 문장으로 제시해 클릭 이후 구매 행동을 유도해야 합니다.</p>
         </div>
       </div>
+      <div class="mini-note">회장님 공유 방향: 현재 화면은 완성본이 아닌 프로토타입이며, 이후 단계에서는 카드 구조, 가격 판단 로직, 문구 기준, 검증 체계를 포함한 정교화가 필요합니다.</div>
     </section>
 
     <section class="section">
@@ -531,6 +409,7 @@
         </div>
       </div>
       <div class="key-box">대외 노출 문구는 ‘AI’보다 ‘전문가/자문단/심사단 분석’ 톤으로 운영하고, 내부적으로는 AI 기반 산정 로직을 활용하는 이원화 정책이 필요합니다.</div>
+      <div class="mini-note">현재 카드형 구조는 프로토타입 기준으로 방향성이 확인된 상태이며, 이후 실제 적용 시에는 가격 가독성, 문구 신뢰도, 배지 규칙, CTA 우선순위, 모바일 반응형까지 함께 정교화해야 합니다.</div>
     </section>
 
     <section class="section">
@@ -586,6 +465,32 @@
     </section>
 
     <section class="section">
+      <h2>4-1. 신뢰 기반 검증 구조</h2>
+      <p class="desc">회장님 공유 사항에 따라 현재 화면은 프로토타입으로 보고, 실제 서비스 전개 시에는 AI 분석에 더해 게임마스터 점검까지 포함한 검증 구조를 갖춰야 합니다.</p>
+      <div class="grid-2">
+        <div class="box">
+          <span class="tag navy">프로토타입 고도화</span>
+          <ul>
+            <li>현재 카드형 시안은 방향 검증용 프로토타입으로 활용</li>
+            <li>실서비스 반영 전 가격/문구/스펙 표기 기준 정교화</li>
+            <li>게임별 표현 차이와 예외 케이스 정리 필요</li>
+            <li>추천 근거 문구와 상세 리포트 연결 구조 고도화</li>
+          </ul>
+        </div>
+        <div class="box">
+          <span class="tag green">게임마스터 점검</span>
+          <ul>
+            <li>AI 및 운영자 1차 판단 후 게임마스터 검수 진행</li>
+            <li>직업/서버/옵션/세팅 가치 판단의 정확도 보완</li>
+            <li>유저 체감과 다른 가격/문구 노출 리스크 최소화</li>
+            <li>검수 통과 매물 중심으로 메인 노출 및 리포트 운영</li>
+          </ul>
+        </div>
+      </div>
+      <div class="key-box">즉, 본 과제는 ‘AI 기능 추가’가 아니라 ‘프로토타입을 정교화하고 게임마스터 점검까지 거친 검증형 거래 판단 구조’로 발전시키는 프로젝트로 정의해야 합니다.</div>
+    </section>
+
+    <section class="section">
       <h2>5. KPI 및 성과 측정 기준</h2>
       <p class="desc">본 과제의 성과는 단순 노출이나 CTR만으로 평가하면 안 되며, 리포트 진입 후 실제 구매 행동 연결 여부까지 봐야 합니다.</p>
       <div class="grid-3">
@@ -614,7 +519,7 @@
           </ul>
         </div>
       </div>
-      <div class="footer-note">성과 정의는 ‘카드 클릭’이 아니라 <strong>판단 보조 구조가 거래 연결에 실제 기여했는지</strong>를 기준으로 관리해야 합니다.</div>
+      <div class="footer-note">성과 정의는 ‘카드 클릭’이 아니라 <strong>판단 보조 구조가 거래 연결에 실제 기여했는지</strong>를 기준으로 관리해야 하며, 검증 반영 매물과 일반 매물 간 성과 차이도 함께 확인해야 합니다.</div>
     </section>
 
     <section class="section">
@@ -640,6 +545,7 @@
             <h3>디자인 시안 및 프로토타입 고도화</h3>
             <ul>
               <li>회장님 카드형 프로토타입 기준 메인 섹션 디자인 확정</li>
+              <li>프로토타입을 실제 서비스 수준으로 정교화</li>
               <li>상세 리포트 내 적정가 범위 시각화 UI 설계</li>
               <li>모바일 카드 축약 버전 및 상세페이지 반응형 구조 설계</li>
               <li>리니지M/리니지클래식 각각 예시 매물 시안 제작</li>
@@ -668,6 +574,7 @@
               <li>리니지M, 리니지클래식 대상 20~30개 매물 수동·반자동 운영</li>
               <li>카드 CTR, 리포트 진입률, 구매 클릭률 집중 점검</li>
               <li>저평가/적정가/고가 문구 반응 비교</li>
+              <li>게임마스터 점검 프로세스 병행 운영</li>
               <li>시장 반응이 약한 문구 및 위치 즉시 수정</li>
             </ul>
           </div>
@@ -690,7 +597,7 @@
 
     <section class="section">
       <h2>7. 최종 보고 포인트</h2>
-      <div class="key-box">1차 실행은 리니지M과 리니지클래식을 대상으로 메인 카드형 ‘매니아 인사이트 상품’ 섹션과 상세 ‘전문가 적정가 분석’ 리포트를 구축하고, 4주 내 MVP를 통해 거래 연결 효과를 검증한 뒤 확장 여부를 판단하는 방향으로 추진하는 것이 가장 현실적입니다.</div>
+      <div class="key-box">1차 실행은 리니지M과 리니지클래식을 대상으로 메인 카드형 ‘매니아 인사이트 상품’ 섹션과 상세 ‘전문가 적정가 분석’ 리포트를 구축하고, 프로토타입을 정교화한 뒤 게임마스터 점검을 반영한 검증형 운영 구조를 갖추고, 4주 내 MVP를 통해 거래 연결 효과를 검증하는 방향으로 추진하는 것이 가장 현실적입니다.</div>
       <div class="grid-2">
         <div class="box">
           <h3>보고 시 강조 포인트</h3>
@@ -698,6 +605,7 @@
             <li>이 과제는 단순 UI 개선이 아니라 거래 판단 구조 전환 프로젝트임</li>
             <li>게임 선정이 성패를 좌우하므로 1차 대상은 리니지 계열로 한정 필요</li>
             <li>AI는 내부 산정 로직으로 활용하고, 외부 노출은 전문가 분석으로 운영</li>
+            <li>프로토타입 단계 이후 정교화 및 게임마스터 점검이 핵심 성공 조건임</li>
           </ul>
         </div>
         <div class="box">
@@ -705,6 +613,7 @@
           <ul>
             <li>1차 대상 게임: 리니지M / 리니지클래식 확정 여부</li>
             <li>메인 섹션 명칭 및 문구 톤 확정 여부</li>
+            <li>게임마스터 점검 프로세스 운영 여부</li>
             <li>4주 MVP 추진 일정 승인 여부</li>
           </ul>
         </div>
