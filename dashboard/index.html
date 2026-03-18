@@ -1,368 +1,397 @@
-import React, { useState } from 'react';
-import { Search, Info, TrendingDown, TrendingUp, Minus, ChevronRight, CheckCircle2, Gift, ShieldCheck, Flame, Diamond, MessageSquare, Send, ArrowLeft } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리니지M 전문가 분석 리포트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .modal-overlay { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
 
-const App = () => {
-  const [selectedReport, setSelectedReport] = useState(null);
-  const [view, setView] = useState('main'); // 'main' or 'benefit_list'
-  const [comment, setComment] = useState("");
-
-  const marketData = {
-    average: 4200000,
-    min: 1990000,
-    max: 8500000,
-    updateDate: "2026.03.18 17:00",
-    server: "데포로쥬 01 (본서버)",
-    class: "사신 (REBOOT)",
-    level: "Lv.89 (0.5% 랭커)"
-  };
-
-  const reports = [
-    {
-      id: 1,
-      type: "저가",
-      valueLabel: "HOT",
-      valueIcon: <Flame className="w-3 h-3 text-orange-500" />,
-      priceLabel: "저평가",
-      title: "신화 변신/3전스 기준 시세 파괴 매물",
-      price: 1990000,
-      specs: ["신화 변신(안타라스)", "3 전설 스킬", "수호성(아툰 풀)"],
-      analysis: {
-        comparison: "본 서버 평균 대비 -52% 저평가",
-        eval: "리니지M 본 서버 기준, 신화 변신 하나만으로도 200만 원대 초반 시세가 형성되나 본 매물은 199만 원으로 등록됨. 수호성 아툰 풀 작업이 완료되어 PVE 효율이 극대화된 상태임. 타 플랫폼 실거래가(230만) 대비 30만 원 이상 저렴함.",
-        usability: "신화 등급으로 리니지M을 시작하려는 복귀 유저에게 최적화된 가성비 종결 매물.",
-        conclusion: "추천"
-      },
-      comments: [
-        { user: "라인브레이커", text: "이거 스펙 대비 진짜 싸게 나왔네요. 신화 성물만 있었으면 바로 샀을듯", date: "10분 전" },
-        { user: "매니아심사단", text: "성물이 영웅급이라 가격이 빠진 상태입니다. 사냥 효율은 신화 변신이 압도하니 참고하세요.", date: "5분 전" }
-      ]
-    },
-    {
-      id: 2,
-      type: "적정",
-      valueLabel: "안정형",
-      valueIcon: <ShieldCheck className="w-3 h-3 text-blue-500" />,
-      priceLabel: "적정가",
-      title: "쌍신화/성물 보유, 즉시 필드 참여 가능",
-      price: 4500000,
-      specs: ["신화 변신/인형", "5 전설 스킬", "영웅 성물 보유"],
-      analysis: {
-        comparison: "시장 평균 대비 +7% (매우 안정적)",
-        eval: "변신과 인형이 모두 신화인 '쌍신화' 계정으로, 최근 추가된 성물 시스템에서도 영웅 등급 이상을 확보함. 스킬 밸런스가 좋아 사신 리부트 효과를 100% 누릴 수 있는 스펙임.",
-        usability: "중상위권 라인 혈맹 가입 및 주요 보스 레이드 즉시 참여 가능 수준.",
-        conclusion: "추천"
-      },
-      comments: []
-    },
-    {
-      id: 3,
-      type: "고가",
-      valueLabel: "고스펙",
-      valueIcon: <Diamond className="w-3 h-3 text-purple-500" />,
-      priceLabel: "고가",
-      title: "트리플 신화(변/인/성) 종결급 매물",
-      price: 8500000,
-      specs: ["신화 변/인/성물", "전설 스킬 풀", "문양 6종 풀"],
-      analysis: {
-        comparison: "시장 평균 대비 +102% (하이엔드 구간)",
-        eval: "변신, 인형에 이어 '신화 성물'까지 보유한 트리플 신화 계정임. 문양 풀 작업과 전설 스킬 풀 강화가 완료되어 추가 과금 요소가 거의 없는 완성형 자산임. 타 플랫폼 최상위권 매물과 비교 시 구성 대비 가격 경쟁력 확보.",
-        usability: "서버 내 랭커 및 최상위권 쟁혈맹 핵심 전력 전용 매물.",
-        conclusion: "신중 검토"
-      },
-      comments: [
-        { user: "고인물01", text: "이 가격이면 타사에서 수수료만 해도 꽤 될텐데 매니아 혜택 적용 되나요?", date: "1시간 전" }
-      ]
-    }
-  ];
-
-  const benefitItems = [
-    { id: 101, tag: "저가", title: "Lv.88 뇌신 - 신화 인형 보유", price: "2,450,000", benefit: "수수료 4% 면제" },
-    { id: 102, tag: "적정", title: "Lv.89 기사 - 쌍신화 + 풀문양", price: "4,100,000", benefit: "수수료 3% 할인" },
-    { id: 103, tag: "저가", title: "Lv.87 투사 - 전설스킬 6개(풀)", price: "1,550,000", benefit: "수수료 4% 면제" },
-  ];
-
-  const getPriceColor = (type) => {
-    if (type === "저가") return "text-green-600 bg-green-50 border-green-200";
-    if (type === "적정") return "text-blue-600 bg-blue-50 border-blue-200";
-    return "text-red-600 bg-red-50 border-red-200";
-  };
-
-  const MainDashboard = () => (
-    <div className="max-w-6xl mx-auto mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex justify-between items-end mb-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            매니아 인사이트 상품 <span className="text-sm font-normal text-slate-400">전체보기</span>
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">리니지M 본서버 실시간 데이터 기반 전문가 리포트</p>
-        </div>
-        <div className="text-right text-xs text-slate-400">
-          기준: {marketData.server} | {marketData.class} <br />
-          업데이트: {marketData.updateDate}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        {reports.map((item) => (
-          <div key={item.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col">
-            <div className="p-6 pb-4">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-10 h-10 bg-blue-900 rounded-lg flex items-center justify-center overflow-hidden border border-blue-800">
-                   <span className="text-[10px] text-white font-black italic">LM</span>
-                </div>
-                <div className="flex gap-1">
-                  <span className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-orange-50 text-orange-600 border border-orange-100`}>
-                    {item.valueIcon} {item.valueLabel}
-                  </span>
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${getPriceColor(item.type)}`}>
-                    {item.type === "저가" ? "📉" : item.type === "적정" ? "🏅" : "⚠️"} {item.priceLabel}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="mb-1">
-                <span className="text-xs text-slate-400">리니지M | {marketData.class} {marketData.level}</span>
-                <h3 className="text-xl font-bold text-blue-600">{item.price.toLocaleString()}원</h3>
-              </div>
-
-              <div className="mt-4 p-4 bg-blue-50/50 rounded-xl border border-blue-100 relative">
-                <div className="absolute -top-3 left-3 bg-white px-2 py-0.5 text-[9px] font-bold text-blue-500 border border-blue-100 rounded-full shadow-sm flex items-center gap-1">
-                  <span className="text-blue-400">✨</span> 매니아 심사단 한줄 분석
-                </div>
-                <p className="text-sm font-medium text-slate-700 mt-1 mb-3 text-center italic">
-                  "{item.title}"
-                </p>
-                <ul className="grid grid-cols-2 gap-y-1 gap-x-2">
-                  {item.specs.map((spec, i) => (
-                    <li key={i} className="flex items-center gap-1 text-[11px] text-slate-600">
-                      <CheckCircle2 className="w-3 h-3 text-green-500" /> {spec}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="px-6 pb-6 mt-auto flex gap-2">
-              <button 
-                onClick={() => setSelectedReport(item)}
-                className="flex-1 py-2.5 px-4 rounded-lg border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors flex items-center justify-center gap-2"
-              >
-                리포트 보기 {item.comments.length > 0 && <span className="bg-blue-100 text-blue-600 text-[10px] px-1.5 py-0.5 rounded-full">{item.comments.length}</span>}
-              </button>
-              <button className="flex-1 py-2.5 px-4 rounded-lg bg-blue-600 text-sm font-bold text-white hover:bg-blue-700 transition-colors">
-                구매하기
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Section 2: 매니아가 쏜다 */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Benefit</span>
-              <h2 className="text-xl font-bold italic">매니아가 쏜다! 🎯</h2>
-            </div>
-            <p className="text-blue-100 text-sm">리니지M 본서버 저평가 매물 거래 시 압도적 수수료 혜택을 드립니다.</p>
-            <div className="flex gap-4 mt-4">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-white/10 rounded-lg"><Gift className="w-5 h-5 text-yellow-300" /></div>
+    <div id="app" class="p-4 md:p-8">
+        <!-- Main Dashboard View -->
+        <div id="main-view" class="max-w-6xl mx-auto mb-8 animate-fade-in">
+            <header class="flex justify-between items-end mb-8">
                 <div>
-                  <p className="text-[10px] text-blue-200 leading-none">수수료 할인</p>
-                  <p className="text-sm font-bold">최대 3~4%</p>
+                    <h1 class="text-2xl font-black text-slate-800 flex items-center gap-2">
+                        매니아 인사이트 상품 <span class="text-sm font-normal text-slate-400">전체보기</span>
+                    </h1>
+                    <p class="text-slate-500 text-sm mt-1 font-medium">리니지M 본서버 실시간 데이터 기반 "판단을 대신해드리는" 전문가 리포트</p>
                 </div>
-              </div>
-              <div className="flex items-center gap-2 border-l border-white/10 pl-4">
-                <div className="p-2 bg-white/10 rounded-lg"><ShieldCheck className="w-5 h-5 text-green-300" /></div>
-                <div>
-                  <p className="text-[10px] text-blue-200 leading-none">안심 보상</p>
-                  <p className="text-sm font-bold">200% 보장</p>
+                <div class="hidden md:block text-right text-xs text-slate-400 font-medium">
+                    기준: 데포로쥬 01 (본서버) | 사신 (REBOOT) <br />
+                    업데이트: 2026.03.18 17:00
                 </div>
-              </div>
-            </div>
-          </div>
-          <button 
-            onClick={() => setView('benefit_list')}
-            className="whitespace-nowrap px-8 py-3 bg-white text-blue-700 font-bold rounded-xl shadow-lg hover:bg-blue-50 transition-colors flex items-center gap-2"
-          >
-            리니지M 대상 매물 확인 <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-      </div>
-    </div>
-  );
+            </header>
 
-  const BenefitListView = () => (
-    <div className="max-w-4xl mx-auto mb-8 animate-in fade-in slide-in-from-right-4 duration-500">
-      <button 
-        onClick={() => setView('main')}
-        className="flex items-center gap-1 text-sm text-slate-500 hover:text-blue-600 transition-colors mb-6"
-      >
-        <ArrowLeft className="w-4 h-4" /> 대시보드로 돌아가기
-      </button>
-      
-      <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-blue-100">
-        <div className="p-8 bg-blue-600 text-white">
-          <h2 className="text-2xl font-bold">🎯 심사단 검증 완료 매물 리스트</h2>
-          <p className="opacity-80 text-sm mt-1">심사단이 선정한 저평가 우량 매물입니다. 구매 시 수수료 혜택이 자동 적용됩니다.</p>
-        </div>
-        <div className="p-4">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-100">
-                <th className="px-4 py-4 text-left font-bold text-slate-400">판단</th>
-                <th className="px-4 py-4 text-left font-bold text-slate-400">상품 정보 (리니지M 본서버)</th>
-                <th className="px-4 py-4 text-right font-bold text-slate-400">판매가</th>
-                <th className="px-4 py-4 text-right font-bold text-blue-600">적용 혜택</th>
-                <th className="px-4 py-4 text-center font-bold text-slate-400">액션</th>
-              </tr>
-            </thead>
-            <tbody>
-              {benefitItems.map((item) => (
-                <tr key={item.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                  <td className="px-4 py-4">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${item.tag === "저가" ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"}`}>
-                      {item.tag === "저가" ? "📉 저평가" : "🏅 적정가"}
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 font-medium text-slate-700">{item.title}</td>
-                  <td className="px-4 py-4 text-right font-bold">{item.price}원</td>
-                  <td className="px-4 py-4 text-right">
-                    <span className="text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded text-xs">{item.benefit}</span>
-                  </td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-xs font-bold text-white bg-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-900">상세보기</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
-          <p className="text-xs text-slate-400">※ 본 리스트는 1시간 마다 시세 변동에 따라 갱신됩니다.</p>
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
-      {view === 'main' ? <MainDashboard /> : <BenefitListView />}
-
-      {/* Modal: Detailed Report */}
-      {selectedReport && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200 border border-slate-200 flex flex-col">
-            <div className="p-8 pb-4 flex justify-between items-start shrink-0">
-              <div>
-                <div className="flex items-center gap-2 mb-1 text-xs font-bold text-blue-500 uppercase tracking-widest">
-                  Lineage M Expert Analysis
-                </div>
-                <h2 className="text-2xl font-bold text-slate-900">
-                  {selectedReport.type === "저가" ? "🟢 [저가]" : selectedReport.type === "적정" ? "🔵 [적정]" : "🔴 [고가]"} 매물 상세 리포트
-                </h2>
-              </div>
-              <button 
-                onClick={() => setSelectedReport(null)}
-                className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
+            <!-- Listing Cards -->
+            <div id="listing-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Cards will be injected by JS -->
             </div>
 
-            <div className="flex-1 overflow-y-auto px-8 py-4 space-y-8">
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">리니지M 등록가</p>
-                    <p className="text-2xl font-bold text-slate-900">{selectedReport.price.toLocaleString()}원</p>
-                  </div>
-                  <div className="space-y-1 border-l border-slate-200 pl-4">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">본서버 평균 시세</p>
-                    <p className="text-2xl font-bold text-slate-500">{marketData.average.toLocaleString()}원</p>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-slate-200 flex items-center justify-between">
-                  <span className="text-sm font-medium text-slate-600">가격 위치 분석</span>
-                  <span className={`text-sm font-bold px-3 py-1 rounded-full ${selectedReport.type === "저가" ? "bg-green-100 text-green-700" : selectedReport.type === "적정" ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700"}`}>
-                    {selectedReport.analysis.comparison}
-                  </span>
-                </div>
-              </div>
-
-              <section>
-                <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                  <Info className="w-4 h-4 text-blue-500" /> 리니지M 스펙 정밀 평가
-                </h4>
-                <div className="bg-white border border-slate-100 rounded-xl p-4 text-sm leading-relaxed text-slate-600">
-                  {selectedReport.analysis.eval}
-                </div>
-              </section>
-
-              {/* Comment Section 추가 */}
-              <section className="border-t border-slate-100 pt-8">
-                <h4 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-blue-500" /> 전문가 & 유저 의견 <span className="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded-full text-slate-500">{selectedReport.comments.length}</span>
-                </h4>
-                
-                <div className="space-y-4 mb-6">
-                  {selectedReport.comments.length > 0 ? (
-                    selectedReport.comments.map((c, i) => (
-                      <div key={i} className={`p-4 rounded-xl text-sm ${c.user === '매니아심사단' ? 'bg-blue-50 border border-blue-100 ml-4' : 'bg-slate-50'}`}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className={`font-bold ${c.user === '매니아심사단' ? 'text-blue-700' : 'text-slate-900'}`}>{c.user}</span>
-                          <span className="text-[10px] text-slate-400">{c.date}</span>
+            <!-- Promotion Banner -->
+            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider">EXCLUSIVE BENEFIT</span>
+                            <h2 class="text-xl font-black italic">매니아가 쏜다! 🎯</h2>
                         </div>
-                        <p className="text-slate-600 leading-snug">{c.text}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-6 text-xs text-slate-400 italic">첫 의견을 남겨주세요.</div>
-                  )}
+                        <p class="text-blue-100 text-sm font-medium">심사단이 엄선한 "저평가 우량 매물"입니다. 수수료 혜택을 놓치지 마세요.</p>
+                        <div class="flex gap-6 mt-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-white/10 rounded-lg">🎁</div>
+                                <div>
+                                    <p class="text-[10px] text-blue-200 leading-none">수수료 할인</p>
+                                    <p class="text-sm font-bold">최대 3~4%</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 border-l border-white/10 pl-6">
+                                <div class="p-2 bg-white/10 rounded-lg">🛡️</div>
+                                <div>
+                                    <p class="text-[10px] text-blue-200 leading-none">안심 보상</p>
+                                    <p class="text-sm font-bold">200% 보장</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="showBenefitView()" class="whitespace-nowrap px-8 py-4 bg-white text-blue-700 font-black rounded-xl shadow-lg hover:bg-blue-50 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+                        혜택 대상 매물 리스트 확인 ➔
+                    </button>
                 </div>
-
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    placeholder="매물에 대한 궁금한 점을 전문가에게 물어보세요..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  />
-                  <button className="absolute right-2 top-1.5 p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors">
-                    <Send className="w-4 h-4" />
-                  </button>
-                </div>
-              </section>
-
-              <div className={`p-6 rounded-2xl border flex items-center justify-between ${
-                selectedReport.analysis.conclusion === "추천" ? "bg-blue-600 border-blue-700 text-white" : "bg-slate-800 border-slate-900 text-white"
-              }`}>
-                <div>
-                  <p className="text-[10px] font-bold opacity-70 uppercase mb-1">Final Conclusion</p>
-                  <p className="text-lg font-bold">이 매물은 <span className="underline decoration-2 underline-offset-4 tracking-tighter">[{selectedReport.analysis.conclusion}]</span> 대상입니다.</p>
-                </div>
-                <div className="text-right">
-                  <button className="px-6 py-2 bg-white text-slate-900 rounded-lg text-sm font-bold hover:bg-blue-50 transition-colors">
-                    지금 구매 결정
-                  </button>
-                </div>
-              </div>
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
             </div>
+        </div>
+
+        <!-- Benefit List View (Hidden by default) -->
+        <div id="benefit-view" class="max-w-4xl mx-auto mb-8 hidden animate-fade-in">
+            <button onclick="showMainView()" class="flex items-center gap-1 text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors mb-6 group">
+                <span class="group-hover:-translate-x-1 transition-transform">←</span> 대시보드로 돌아가기
+            </button>
             
-            <div className="p-4 bg-slate-50 border-t border-slate-100 text-center shrink-0">
-               <p className="text-[10px] text-slate-400 italic">
-                  ※ 리니지M 본서버는 회수 사고 위험이 존재하므로 아이템매니아 안심 거래 서비스를 반드시 이용하시기 바랍니다.
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-blue-100">
+                <div class="p-8 bg-blue-700 text-white">
+                    <h2 class="text-2xl font-black">🎯 심사단 검증 완료 매물 리스트</h2>
+                    <p class="opacity-80 text-sm mt-1 font-medium">데이터 분석을 통해 선별된 "수수료 면제/할인" 승인 매물입니다.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-100 bg-slate-50/50">
+                                <th class="px-6 py-4 text-left font-bold text-slate-400">판단 라벨</th>
+                                <th class="px-6 py-4 text-left font-bold text-slate-400">상품 정보 (본서버)</th>
+                                <th class="px-6 py-4 text-right font-bold text-slate-400">판매가</th>
+                                <th class="px-6 py-4 text-right font-bold text-blue-600">적용 혜택</th>
+                                <th class="px-6 py-4 text-center font-bold text-slate-400">상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benefit-table-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-6 bg-slate-50 border-t border-slate-100 text-center">
+                    <p class="text-[11px] text-slate-400 font-medium italic">※ 본 리스트는 심사단의 실시간 모니터링을 통해 매시간 갱신됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="report-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
+        <div class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl relative z-10 flex flex-col animate-fade-in">
+            <!-- Modal Header -->
+            <div class="p-8 pb-4 flex justify-between items-start shrink-0">
+                <div>
+                    <div class="flex items-center gap-2 mb-1 text-[10px] font-black text-blue-600 uppercase tracking-[0.2em]">
+                        Expert Analysis Report
+                    </div>
+                    <h2 id="modal-title" class="text-2xl font-black text-slate-900">매물 상세 리포트</h2>
+                </div>
+                <button onclick="closeModal()" class="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div id="modal-content" class="flex-1 overflow-y-auto px-8 py-4 space-y-8">
+                <!-- Content will be injected -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-50 border-t border-slate-100 text-center shrink-0">
+                <p class="text-[10px] text-slate-400 font-medium italic">
+                    ※ 리니지M 본서버 거래는 반드시 아이템매니아 안심 거래 서비스를 통해 회수 사고를 방지하세요.
                 </p>
             </div>
-          </div>
         </div>
-      )}
     </div>
-  );
-};
 
-export default App;
+    <script>
+        const marketData = {
+            average: 4200000,
+            updateDate: "2026.03.18 17:00"
+        };
+
+        const reports = [
+            {
+                id: 1,
+                type: "저가",
+                valueLabel: "HOT",
+                priceLabel: "저평가",
+                title: "신화 변신/3전스 기준 시세 파괴 매물",
+                price: 1990000,
+                specs: ["신화 변신(안타라스)", "3 전설 스킬", "수호성(아툰 풀)"],
+                analysis: {
+                    comparison: "본 서버 평균 대비 -52% 저평가",
+                    eval: "신화 변신 보유 매물 중 압도적 최저가입니다. 수호성 아툰 풀 작업만으로도 상당한 가치를 지니며, 타 플랫폼 실거래가 대비 30만 원 이상 저렴한 '시세 파괴' 수준의 급매물입니다.",
+                    usability: "소과금 유저가 신화 등급으로 리니지M 입문 시 자산 방어력이 가장 높은 선택지입니다.",
+                    conclusion: "추천"
+                },
+                comments: [
+                    { user: "라인브레이커", text: "이거 스펙 대비 진짜 싸게 나왔네요. 신화 성물만 있었으면 바로 샀을듯", date: "10분 전" },
+                    { user: "매니아심사단", text: "성물이 영웅급이라 가격이 빠진 상태입니다. 사냥 효율은 신화 변신이 압도하니 참고하세요.", date: "5분 전" }
+                ]
+            },
+            {
+                id: 2,
+                type: "적정",
+                valueLabel: "안정형",
+                priceLabel: "적정가",
+                title: "쌍신화/성물 보유, 즉시 필드 참여 가능",
+                price: 4500000,
+                specs: ["신화 변신/인형", "5 전설 스킬", "영웅 성물 보유"],
+                analysis: {
+                    comparison: "시장 평균 대비 +7% (매우 안정적)",
+                    eval: "변신과 인형이 모두 신화인 '쌍신화' 계정으로, 최근 추가된 성물 시스템에서도 영웅 등급 이상을 확보했습니다. 시세 정중앙에 위치하며 거래 회전율이 가장 빠른 구간입니다.",
+                    usability: "중상위권 라인 혈맹 가입 및 주요 필드 보스 레이드에 즉시 투입 가능한 즉전감 계정입니다.",
+                    conclusion: "추천"
+                },
+                comments: []
+            },
+            {
+                id: 3,
+                type: "고가",
+                valueLabel: "고스펙",
+                priceLabel: "고가",
+                title: "트리플 신화(변/인/성) 종결급 매물",
+                price: 8500000,
+                specs: ["신화 변/인/성물", "전설 스킬 풀", "문양 6종 풀"],
+                analysis: {
+                    comparison: "시장 평균 대비 +102% (하이엔드 구간)",
+                    eval: "변신, 인형, 성물까지 모두 신화인 '트리플 신화' 계정입니다. 문양 풀 강화와 전설 스킬 풀셋은 제작 비용 대비 현재 가격이 훨씬 경제적인 '스펙 종결' 상태입니다.",
+                    usability: "서버 내 랭커 지향 및 공성전 핵심 전력을 원하는 헤비 유저를 위한 매물입니다.",
+                    conclusion: "신중 검토"
+                },
+                comments: [
+                    { user: "고인물01", text: "이 가격이면 타사 수수료가 꽤 클 텐데 매니아 혜택 적용되나요?", date: "1시간 전" },
+                    { user: "매니아심사단", text: "해당 매물은 고가 상품 특별 우대 대상으로, 수수료 협의 및 전담 안심 보상이 지원됩니다.", date: "20분 전" }
+                ]
+            }
+        ];
+
+        const benefitItems = [
+            { id: 101, tag: "저가", title: "Lv.88 뇌신 - 신화 인형 보유", price: "2,450,000", benefit: "수수료 4% 면제" },
+            { id: 102, tag: "적정", title: "Lv.89 기사 - 쌍신화 + 풀문양", price: "4,100,000", benefit: "수수료 3% 할인" },
+            { id: 103, tag: "저가", title: "Lv.87 투사 - 전설스킬 6개(풀)", price: "1,550,000", benefit: "수수료 4% 면제" },
+        ];
+
+        function init() {
+            renderCards();
+            renderBenefitTable();
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('listing-grid');
+            grid.innerHTML = reports.map(item => `
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+                    <div class="p-8 pb-4">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-10 h-10 bg-blue-900 rounded-xl flex items-center justify-center border border-blue-800 shadow-inner">
+                                <span class="text-[10px] text-white font-black italic">LM</span>
+                            </div>
+                            <div class="flex gap-1.5">
+                                <span class="px-2.5 py-1 rounded-lg text-[10px] font-black bg-orange-50 text-orange-600 border border-orange-100 flex items-center gap-1">
+                                    ${item.valueLabel === 'HOT' ? '🔥' : item.valueLabel === '고스펙' ? '💎' : '🛡️'} ${item.valueLabel}
+                                </span>
+                                <span class="px-2.5 py-1 rounded-lg text-[10px] font-black border ${getPriceColor(item.type)}">
+                                    ${item.priceLabel}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Lineage M | 사신 Lv.89</span>
+                            <h3 class="text-2xl font-black text-blue-600 tracking-tight mt-0.5">${item.price.toLocaleString()}원</h3>
+                        </div>
+
+                        <div class="mt-4 p-5 bg-blue-50/50 rounded-2xl border border-blue-100 relative">
+                            <div class="absolute -top-3 left-4 bg-white px-3 py-1 text-[10px] font-black text-blue-600 border border-blue-100 rounded-full shadow-sm flex items-center gap-1.5">
+                                <span class="text-blue-500 animate-pulse">✨</span> 매니아 심사단 한줄 분석
+                            </div>
+                            <p class="text-[13px] font-bold text-slate-700 mt-2 mb-4 text-center leading-relaxed">
+                                "${item.title}"
+                            </p>
+                            <ul class="grid grid-cols-1 gap-2">
+                                ${item.specs.map(spec => `
+                                    <li class="flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                                        <span class="text-green-500">✓</span> ${spec}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="px-8 pb-8 mt-auto flex gap-3">
+                        <button onclick="openModal(${item.id})" class="flex-1 py-3.5 px-4 rounded-xl border border-slate-200 text-xs font-black text-slate-600 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                            리포트 보기 ${item.comments.length > 0 ? `<span class="bg-blue-600 text-white text-[9px] px-1.5 py-0.5 rounded-full">${item.comments.length}</span>` : ''}
+                        </button>
+                        <button class="flex-1 py-3.5 px-4 rounded-xl bg-blue-600 text-xs font-black text-white hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95">
+                            구매하기
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBenefitTable() {
+            const body = document.getElementById('benefit-table-body');
+            body.innerHTML = benefitItems.map(item => `
+                <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors cursor-pointer group">
+                    <td class="px-6 py-5">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black ${item.tag === '저가' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}">
+                            ${item.tag === '저가' ? '📉 저평가' : '🏅 적정가'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-5 font-bold text-slate-700">${item.title}</td>
+                    <td class="px-6 py-5 text-right font-black text-slate-900">${item.price}원</td>
+                    <td class="px-6 py-5 text-right">
+                        <span class="text-blue-600 font-black bg-blue-50 px-3 py-1.5 rounded-lg text-xs border border-blue-100">${item.benefit}</span>
+                    </td>
+                    <td class="px-6 py-5 text-center">
+                        <button class="text-[11px] font-black text-slate-500 group-hover:text-blue-600 flex items-center gap-1 mx-auto transition-colors uppercase tracking-widest">
+                            Details ➔
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getPriceColor(type) {
+            if (type === "저가") return "text-green-600 bg-green-50 border-green-200";
+            if (type === "적정") return "text-blue-600 bg-blue-50 border-blue-200";
+            return "text-red-600 bg-red-50 border-red-200";
+        }
+
+        function openModal(id) {
+            const item = reports.find(r => r.id === id);
+            const modal = document.getElementById('report-modal');
+            const content = document.getElementById('modal-content');
+            
+            document.getElementById('modal-title').innerHTML = `
+                <span class="${item.type === '저가' ? 'text-green-600' : item.type === '적정' ? 'text-blue-600' : 'text-red-600'}">
+                    [${item.type}]
+                </span> 매물 상세 리포트
+            `;
+
+            content.innerHTML = `
+                <div class="bg-slate-50 rounded-2xl p-7 border border-slate-100 shadow-inner">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="space-y-1">
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">리니지M 등록가</p>
+                            <p class="text-3xl font-black text-slate-900">${item.price.toLocaleString()}원</p>
+                        </div>
+                        <div class="space-y-1 border-l border-slate-200 pl-8">
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">본서버 평균 시세</p>
+                            <p class="text-3xl font-black text-slate-400">${marketData.average.toLocaleString()}원</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-5 border-t border-slate-200 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-500">가격 위치 정밀 분석</span>
+                        <span class="text-xs font-black px-4 py-1.5 rounded-full ${getPriceColor(item.type)} shadow-sm">
+                            ${item.analysis.comparison}
+                        </span>
+                    </div>
+                </div>
+
+                <section>
+                    <h4 class="text-xs font-black text-slate-900 mb-4 flex items-center gap-2 uppercase tracking-widest">
+                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full"></span> 리니지M 스펙 정밀 평가
+                    </h4>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-5 text-[13px] leading-relaxed text-slate-600 font-medium shadow-sm">
+                        ${item.analysis.eval}
+                    </div>
+                </section>
+
+                <section>
+                    <h4 class="text-xs font-black text-slate-900 mb-4 flex items-center gap-2 uppercase tracking-widest">
+                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full"></span> 활용 가능성 및 자산 가치
+                    </h4>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-5 text-[13px] leading-relaxed text-slate-600 font-medium shadow-sm">
+                        ${item.analysis.usability}
+                    </div>
+                </section>
+
+                <section class="border-t border-slate-100 pt-8">
+                    <h4 class="text-xs font-black text-slate-900 mb-5 flex items-center gap-2 uppercase tracking-widest">
+                        🗨️ 전문가 & 유저 의견 <span class="bg-slate-100 px-2 py-0.5 rounded-full text-slate-500 text-[10px]">${item.comments.length}</span>
+                    </h4>
+                    <div class="space-y-4 mb-6">
+                        ${item.comments.length > 0 ? item.comments.map(c => `
+                            <div class="p-5 rounded-2xl text-[13px] ${c.user === '매니아심사단' ? 'bg-blue-50 border border-blue-100 ml-6' : 'bg-slate-50'}">
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <span class="font-black ${c.user === '매니아심사단' ? 'text-blue-700' : 'text-slate-900'}">${c.user}</span>
+                                    <span class="text-[10px] text-slate-400 font-bold">${c.date}</span>
+                                </div>
+                                <p class="text-slate-600 leading-snug font-medium">${c.text}</p>
+                            </div>
+                        `).join('') : '<div class="text-center py-8 text-xs text-slate-400 italic">현재 등록된 의견이 없습니다. 첫 의견을 남겨주세요.</div>'}
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="매물에 대한 궁금한 점을 질문하세요..." class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-5 pr-14 text-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-medium">
+                        <button class="absolute right-3 top-2 p-2.5 text-blue-600 hover:bg-blue-100 rounded-xl transition-all">➔</button>
+                    </div>
+                </section>
+
+                <div class="p-7 rounded-3xl border shadow-xl flex items-center justify-between ${item.analysis.conclusion === '추천' ? 'bg-blue-600 border-blue-700 text-white' : 'bg-slate-900 border-slate-800 text-white'}">
+                    <div>
+                        <p class="text-[9px] font-black opacity-60 uppercase tracking-widest mb-1">Final Conclusion</p>
+                        <p class="text-xl font-black tracking-tight">이 매물은 <span class="underline decoration-2 underline-offset-4 decoration-white/30">[${item.analysis.conclusion}]</span> 대상입니다.</p>
+                    </div>
+                    <button class="px-7 py-3 bg-white text-slate-900 rounded-xl text-xs font-black hover:bg-blue-50 transition-all transform active:scale-95 shadow-lg">
+                        지금 구매 결정
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('report-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showBenefitView() {
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('benefit-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showMainView() {
+            document.getElementById('benefit-view').classList.add('hidden');
+            document.getElementById('main-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
