@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>리니지M 계정 추천 운영 시작 가이드 | 마케터 실행용</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#4b5563;
+      --line:#dbe3ee;
+      --blue:#2563eb;
+      --navy:#1e3a8a;
+      --green:#16a34a;
+      --amber:#d97706;
+      --red:#dc2626;
+      --soft-blue:#eff6ff;
+      --soft-green:#f0fdf4;
+      --soft-amber:#fffbeb;
+      --soft-red:#fff1f2;
+      --shadow:0 12px 32px rgba(15,23,42,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#eef4ff 0%,#f8fafc 220px,var(--bg) 100%);
+      line-height:1.65;
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:38px 22px 80px;}
+    h2{margin:0 0 8px;font-size:26px;letter-spacing:-.02em;color:#111827;}
+    h3{font-size:17px;letter-spacing:-.01em;color:#111827;}
+    p{color:var(--muted);font-size:14px;line-height:1.75;}
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 55%,#60a5fa 100%);
+      color:#fff;
+      border-radius:30px;
+      padding:36px 38px;
+      box-shadow:var(--shadow);
+      margin-bottom:24px;
+    }
+    .eyebrow{
+      display:inline-block;padding:7px 12px;border-radius:999px;
+      background:rgba(255,255,255,.16);font-size:12px;font-weight:800;
+      margin-bottom:14px;letter-spacing:.04em;color:#fff;
+    }
+    .hero h1{margin:0 0 10px;font-size:32px;line-height:1.25;letter-spacing:-.03em;color:#fff;}
+    .hero p{margin:0;color:rgba(255,255,255,.92);max-width:930px;font-size:15px;}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+    .hero-meta span{font-size:12px;font-weight:700;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;}
+
+    /* SECTION */
+    .section{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:28px;margin-top:20px;}
+    .sub{margin:0 0 18px;color:var(--muted);font-size:14px;}
+
+    /* GRID */
+    .grid{display:grid;gap:16px;}
+    .grid-2{grid-template-columns:1fr 1fr;}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-4{grid-template-columns:repeat(4,1fr);}
+
+    /* CARD */
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;}
+    .card h3{margin:0 0 8px;}
+    .card p{margin:0;font-size:13px;}
+
+    /* TAG */
+    .tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;margin-bottom:10px;letter-spacing:.02em;}
+    .blue{background:#dbeafe;color:#1d4ed8;}
+    .green{background:#dcfce7;color:#15803d;}
+    .amber{background:#fef3c7;color:#92400e;}
+    .red{background:#fee2e2;color:#b91c1c;}
+    .navy{background:#e0e7ff;color:#3730a3;}
+    .gray{background:#f1f5f9;color:#475569;}
+    .purple{background:#ede9fe;color:#6d28d9;}
+
+    /* BOX */
+    .box{border-radius:16px;padding:16px 18px;border:1px solid var(--line);margin-top:14px;}
+    .box.blue{background:var(--soft-blue);border-color:#bfdbfe;}
+    .box.green{background:var(--soft-green);border-color:#bbf7d0;}
+    .box.amber{background:var(--soft-amber);border-color:#fde68a;}
+    .box.red{background:var(--soft-red);border-color:#fecaca;}
+    .box strong{font-size:14px;color:#111827;display:block;margin-bottom:8px;}
+    .box p{font-size:13px;margin-top:6px;}
+
+    /* LIST */
+    ul{margin:8px 0 0;padding-left:18px;color:var(--muted);}
+    li{font-size:13px;margin-bottom:5px;}
+    li strong{color:#111827;}
+
+    /* STEPS */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;position:relative;}
+    .step-no{display:inline-block;padding:4px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:800;margin-bottom:10px;letter-spacing:.02em;}
+    .step h3{margin:0 0 8px;}
+    .step p{font-size:13px;margin:0;}
+    .check{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f8fafc;border:1px dashed #cbd5e1;color:#475569;font-size:12px;line-height:1.6;}
+
+    /* TABLE */
+    table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px;}
+    th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;}
+    th{background:#f8fafc;font-weight:700;color:#374151;}
+
+    /* FLOW */
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+    .flow-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;}
+    .flow-item strong{display:block;margin-bottom:6px;font-size:13px;color:#111827;}
+    .flow-item span{font-size:12px;color:var(--muted);}
+
+    /* WEIGHT TABLE */
+    .weight-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
+    .weight-table th{background:#f1f5f9;padding:8px 12px;text-align:left;font-weight:700;color:#374151;border-bottom:2px solid #e2e8f0;}
+    .weight-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;}
+    .weight-table tr:last-child td{border-bottom:none;}
+    .wt-badge{display:inline-flex;align-items:center;justify-content:center;width:42px;height:24px;border-radius:999px;font-size:11px;font-weight:800;}
+
+    /* RISK BOX */
+    .risk-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;margin-bottom:6px;font-size:13px;}
+    .risk-item.block{background:#fff1f2;border:1px solid #fecaca;color:#991b1b;}
+    .risk-item.warn{background:#fffbeb;border:1px solid #fde68a;color:#78350f;}
+    .risk-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+    /* FORMULA */
+    .formula{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #2563eb;border-radius:0 12px 12px 0;padding:14px 16px;font-family:'Pretendard',sans-serif;font-size:13px;margin-top:10px;color:#1e293b;line-height:1.9;}
+    .formula .hl{color:#1d4ed8;font-weight:700;}
+    .formula .hla{color:#92400e;font-weight:700;}
+    .formula .hlg{color:#15803d;font-weight:700;}
+
+    /* KPI TABLE */
+    .kpi-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
+    .kpi-table th{background:#f1f5f9;padding:8px 12px;text-align:left;font-weight:700;color:#374151;border-bottom:2px solid #e2e8f0;}
+    .kpi-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;}
+    .kpi-table tr:last-child td{border-bottom:none;}
+
+    /* POLICY ROW */
+    .policy-row{display:flex;gap:14px;margin-top:14px;}
+    .policy-col{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;}
+    .policy-col h4{font-size:13px;font-weight:700;margin-bottom:8px;color:#111827;}
+
+    /* EXAMPLE */
+    .example{background:#111827;color:#e5e7eb;border-radius:18px;padding:18px 20px;font-size:13px;overflow:auto;line-height:1.8;}
+    .example strong{color:#93c5fd;}
+    .example .eg-green{color:#6ee7b7;}
+    .example .eg-amber{color:#fcd34d;}
+
+    /* NOTICE */
+    .notice{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;font-size:13px;margin-top:10px;}
+    .notice.blue{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;}
+    .notice.amber{background:#fffbeb;border:1px solid #fde68a;color:#78350f;}
+    .notice.red{background:#fff1f2;border:1px solid #fecaca;color:#991b1b;}
+    .notice.green{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;}
+    .notice-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+    /* FOOTER */
+    .footer{margin-top:24px;text-align:center;color:#9ca3af;font-size:13px;}
+
+    @media(max-width:960px){
+      .grid-2,.grid-3,.grid-4,.steps,.flow,.policy-row{grid-template-columns:1fr;flex-direction:column;}
+      .hero h1{font-size:26px;}
+      .wrap{padding:20px 14px 60px;}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">마케터 실행용 가이드</div>
+    <h1>리니지M 계정 상품 추천 운영,<br>어떻게 시작해야 하는지 1번~3번 순서 정리</h1>
+    <p>아이템매니아 리니지M 계정 상품 리스트를 바탕으로 추천 상품을 운영하려면, 개발 이야기가 아니라 먼저 마케터가 어떤 순서로 데이터를 모으고, 어떻게 정리하고, 어떤 기준으로 추천 후보를 뽑을지부터 정해야 합니다. 아래 문서는 실무 시작 기준으로 1번부터 3번까지 정리한 실행 가이드입니다.</p>
+    <div class="hero-meta">
+      <span>대상: 아이템매니아 리니지M 계정 리스트</span>
+      <span>목적: 전문가 추천 신뢰도 확보</span>
+      <span>초기 운영: 수동 수집 + 기준 축적</span>
+      <span>자문단: AI 기반 (별도 섭외 없음)</span>
+      <span>바로템: 내부 참고용만 활용</span>
+    </div>
+  </section>
+
+  <!-- 왜 순서가 중요한가 -->
+  <section class="section">
+    <h2>왜 먼저 순서를 정해야 하나</h2>
+    <p class="sub">지금 필요한 건 'AI가 추천한다'가 아니라, '어떤 근거로 추천했는지 설명 가능한 구조'입니다. AI는 맨 마지막에 붙고, 그 전에 마케터가 기준 데이터를 먼저 모아야 합니다.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="tag blue">핵심 1</span>
+        <h3>아이템매니아 내부 기준</h3>
+        <p>우리 플랫폼 안에서 같은 조건의 매물이 얼마에 올라오고, 어떤 매물이 빨리 팔리는지 먼저 봐야 합니다.</p>
+      </div>
+      <div class="card">
+        <span class="tag amber">핵심 2</span>
+        <h3>외부 시장 기준</h3>
+        <p>바로템과 기존 거래 사례를 같이 봐야 '시장 전체 기준'이라고 말할 수 있습니다. 단, 바로템은 내부 참고용으로만 활용하고 외부에 직접 언급하지 않습니다.</p>
+      </div>
+      <div class="card">
+        <span class="tag green">핵심 3</span>
+        <h3>AI는 해석 담당</h3>
+        <p>AI는 데이터를 만든 뒤 설명하고 정리하는 도구입니다. 처음부터 기준을 만드는 주체가 아닙니다. 외부 노출 시 "AI 추천" 표현은 사용하지 않습니다.</p>
+      </div>
+    </div>
+    <div class="notice blue" style="margin-top:14px;">
+      <span class="notice-icon">📌</span>
+      <div><strong>외부 노출 명칭 통일:</strong> 사용자에게는 "매니아 자문단 분석" 또는 "매니아 심사단 한줄 분석"으로 표기합니다. "AI 리포트", "AI 분석", "AI 추천" 표현은 사용하지 않습니다.</div>
+    </div>
+  </section>
+
+  <!-- 1번 -->
+  <section class="section">
+    <h2>1번. 아이템매니아 기준 데이터부터 모은다</h2>
+    <p class="sub">가장 먼저 해야 할 일은 현재 아이템매니아 리니지M 계정 리스트에서 추천 운영의 기준이 될 원본 데이터를 만드는 것입니다. 이 단계가 끝나야 다음 단계로 넘어갈 수 있습니다.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-no">1-1</div>
+        <h3>최근 매물 100개 수집</h3>
+        <p>처음부터 전체를 볼 필요는 없습니다. 최근 등록된 계정 상품 100개 정도만 모아도 MVP 운영 기준을 만들 수 있습니다.</p>
+        <div class="check">체크: 전체 수집이 아니라 '최근 매물 100개'부터 시작</div>
+      </div>
+      <div class="step">
+        <div class="step-no">1-2</div>
+        <h3>필수 항목만 엑셀로 정리</h3>
+        <p>마케터가 처음 수집할 때는 복잡한 설계보다 '추천 판단에 바로 필요한 필드'만 정리하는 게 중요합니다.</p>
+        <div class="check">체크: 상품번호, 제목, 가격, 서버, 클래스, 레벨, 등록일, 링크</div>
+      </div>
+      <div class="step">
+        <div class="step-no">1-3</div>
+        <h3>제목 안의 핵심 스펙을 같이 적기</h3>
+        <p>리니지M 계정은 제목에 스펙이 많이 들어갑니다. 신스, 풀문양, 이동악세 같은 표현을 따로 메모해야 합니다.</p>
+        <div class="check">체크: 제목 원문 + 스펙 키워드 추출 컬럼을 따로 운영</div>
+      </div>
+    </div>
+
+    <div class="box blue">
+      <strong>마케터가 바로 만드는 첫 번째 시트 구조</strong>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:12%">상품번호</th>
+            <th>제목</th>
+            <th style="width:9%">가격</th>
+            <th style="width:9%">서버</th>
+            <th style="width:9%">클래스</th>
+            <th style="width:7%">레벨</th>
+            <th style="width:10%">등록일</th>
+            <th style="width:14%">핵심 스펙 메모</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>예: 123456</td>
+            <td>91요정 2신스 풀문양 4이동악세</td>
+            <td>320만원</td>
+            <td>데포로쥬</td>
+            <td>요정</td>
+            <td>91</td>
+            <td>2026-03-19</td>
+            <td>2신스 / 풀문양 / 이동악세4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 스펙 배점 가중치 — 추가된 내용 -->
+    <div class="box amber" style="margin-top:14px;">
+      <strong>핵심 스펙 배점 기준 (가중치 근거 포함)</strong>
+
+      <!-- 등급 티어 안내 -->
+      <div style="margin:10px 0 14px;padding:12px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;font-size:13px;">
+        <div style="font-weight:700;color:#111827;margin-bottom:8px;">📊 변신 · 인형 · 성물 공통 등급 체계 (7단계)</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;">
+          <span style="padding:4px 10px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:12px;font-weight:700;">일반</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:#ecfdf5;color:#065f46;font-size:12px;font-weight:700;">고급</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:12px;font-weight:700;">희귀</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:#fff7ed;color:#c2410c;font-size:12px;font-weight:700;">영웅</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:#faf5ff;color:#6d28d9;font-size:12px;font-weight:700;">전설</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#78350f;font-size:12px;font-weight:800;border:1px solid #fcd34d;">신화</span>
+          <span style="color:#94a3b8;font-size:12px;">→</span>
+          <span style="padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,#e0f2fe,#bae6fd);color:#075985;font-size:12px;font-weight:800;border:1px solid #7dd3fc;">유일</span>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:#6b7280;">※ 신화·유일 등급은 거래가에 가장 큰 영향을 미침. 각성 여부·각인 여부도 동급 내 가격 차이를 만드는 핵심 변수.</div>
+      </div>
+
+      <table class="weight-table">
+        <thead>
+          <tr><th>스펙 항목</th><th>가중치</th><th>배점 기준</th><th>확인 포인트</th><th>가중치 근거</th></tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff8f8;">
+            <td><strong>변신 등급</strong></td>
+            <td><span class="wt-badge" style="background:#fee2e2;color:#b91c1c;">×5</span></td>
+            <td>
+              신화 각성 완료 = 5점<br>
+              신화 (각성 미완) = 4점<br>
+              전설 = 3점<br>
+              영웅 = 2점<br>
+              희귀 이하 = 1점
+            </td>
+            <td style="font-size:12px;color:#374151;">
+              ① 등급 확인<br>
+              ② <strong style="color:#b91c1c;">각성 완료 여부</strong><br>
+              ③ 각성 옵션 내용 (스적·스내 등)<br>
+              ④ 직업 전용 여부
+            </td>
+            <td>거래가에 미치는 영향 가장 큼. 각성 완료 시 옵션 추가 발동으로 미각성 대비 체감 성능 차이 큼</td>
+          </tr>
+          <tr style="background:#fff8f8;">
+            <td><strong>인형(마법인형) 등급</strong></td>
+            <td><span class="wt-badge" style="background:#fee2e2;color:#b91c1c;">×5</span></td>
+            <td>
+              신화 각성 완료 = 5점<br>
+              신화 (각성 미완) = 4점<br>
+              전설 = 3점<br>
+              영웅 = 2점<br>
+              희귀 이하 = 1점
+            </td>
+            <td style="font-size:12px;color:#374151;">
+              ① 등급 확인<br>
+              ② <strong style="color:#b91c1c;">각성 완료 여부</strong><br>
+              ③ 스턴내성·HP흡수 등 주요 옵션<br>
+              ④ 전설↑ 탐험 증표 가치
+            </td>
+            <td>변신과 동급 가중치. 전설 등급부터 스턴내성 옵션 적용, 영웅 등급 뱀파이어는 HP흡수로 자동사냥 효율 특히 높음</td>
+          </tr>
+          <tr style="background:#fffbf0;">
+            <td><strong>성물 등급</strong></td>
+            <td><span class="wt-badge" style="background:#fef3c7;color:#92400e;">×4</span></td>
+            <td>
+              신화 각성 완료 = 5점<br>
+              신화 (각성 미완) = 4점<br>
+              전설 = 3점<br>
+              영웅 = 2점<br>
+              희귀 이하 = 1점
+            </td>
+            <td style="font-size:12px;color:#374151;">
+              ① 등급 확인<br>
+              ② <strong style="color:#b91c1c;">각성 완료 여부</strong><br>
+              ③ 스킬 레벨 증가 효과<br>
+              ④ 경험치 보너스 옵션
+            </td>
+            <td>영웅 성물 → 일반 스킬 레벨 +1, 전설 성물 → 영웅 스킬 레벨 +1. 변신·인형과 함께 3대 핵심 스펙</td>
+          </tr>
+          <tr>
+            <td><strong>각인 여부</strong></td>
+            <td><span class="wt-badge" style="background:#fef3c7;color:#92400e;">×4</span></td>
+            <td>
+              핵심 장비 각인 완료 = 5점<br>
+              일부 각인 = 3점<br>
+              각인 없음 = 1점
+            </td>
+            <td style="font-size:12px;color:#374151;">
+              ① 무기·악세 각인 여부<br>
+              ② <strong style="color:#b91c1c;">각인 옵션 내용</strong><br>
+              ③ 이동악세 각인 포함 여부
+            </td>
+            <td>각인은 장비에 고정 옵션을 부여. 같은 장비라도 각인 여부에 따라 가격 차이가 크게 발생</td>
+          </tr>
+          <tr>
+            <td><strong>이동악세</strong></td>
+            <td><span class="wt-badge" style="background:#fef3c7;color:#92400e;">×4</span></td>
+            <td>5종=5점 / 3~4종=3점 / 1~2종=1점 / 없음=0점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 보유 수량 확인<br>
+              ② 각인 포함 여부
+            </td>
+            <td>체감 성능과 완성도에 직접 영향. 이동속도·사냥 효율 핵심</td>
+          </tr>
+          <tr>
+            <td><strong>문양 완성도</strong></td>
+            <td><span class="wt-badge" style="background:#fef3c7;color:#92400e;">×4</span></td>
+            <td>풀문양=5점 / 60~80%=3점 / 50% 이하=1점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 문양 완성 비율 확인<br>
+              ② 고급 문양 포함 여부
+            </td>
+            <td>추가 과금 없이 즉시 활용 가능 여부에 직접 영향</td>
+          </tr>
+          <tr>
+            <td><strong>레벨 구간</strong></td>
+            <td><span class="wt-badge" style="background:#dbeafe;color:#1d4ed8;">×3</span></td>
+            <td>95↑=5점 / 90~94=4점 / 85~89=3점 / 80~84=2점 / 79↓=1점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 레벨 수치 확인<br>
+              ② 경험치 진행률
+            </td>
+            <td>콘텐츠 진입 기준선. 90레벨 이상이어야 상위 콘텐츠 참여 가능</td>
+          </tr>
+          <tr>
+            <td><strong>클래스 수요도</strong></td>
+            <td><span class="wt-badge" style="background:#dcfce7;color:#15803d;">×2</span></td>
+            <td>뇌신·군주·요정=3점 / 일반=2점 / 비인기=1점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 클래스 확인<br>
+              ② 서버 내 수요 체크
+            </td>
+            <td>같은 스펙이라도 인기 클래스일수록 거래 속도 빠르고 가격 높음</td>
+          </tr>
+          <tr>
+            <td><strong>스킬 수준</strong></td>
+            <td><span class="wt-badge" style="background:#dcfce7;color:#15803d;">×2</span></td>
+            <td>2신스↑=3점 / 1개=2점 / 없음=0점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 신화스킬 보유 수<br>
+              ② 유니크스킬 여부
+            </td>
+            <td>성물 등급에 따라 스킬 레벨도 함께 상승. 신화스킬 2개 이상은 고가 형성 요소</td>
+          </tr>
+          <tr>
+            <td><strong>컬렉션</strong></td>
+            <td><span class="wt-badge" style="background:#f1f5f9;color:#475569;">×1</span></td>
+            <td>상위 완성=3점 / 일부=2점 / 미완=0점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 컬렉션 진행도<br>
+              ② 희귀 컬렉션 포함 여부
+            </td>
+            <td>변신·인형 보유만으로도 컬렉션 옵션 발동. 부가 가치 요소</td>
+          </tr>
+          <tr>
+            <td><strong>부캐릭터</strong></td>
+            <td><span class="wt-badge" style="background:#f1f5f9;color:#475569;">×1</span></td>
+            <td>90급↑ 다수=3점 / 일부=2점 / 없음=0점</td>
+            <td style="font-size:12px;color:#374151;">
+              ① 부캐 수·레벨 확인<br>
+              ② 운영 용도 파악
+            </td>
+            <td>운영 효율 보조. 구매자 활용도에 따라 체감 가치 차이</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 각성 안내 박스 -->
+      <div style="margin-top:12px;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;font-size:13px;">
+        <strong style="color:#78350f;display:block;margin-bottom:6px;">⚠️ 각성 확인 시 주의사항</strong>
+        <ul style="margin:0;padding-left:16px;color:#92400e;">
+          <li>변신·인형·성물 모두 <strong>각성 시스템</strong>이 적용됩니다. 동일 등급이라도 각성 완료 여부에 따라 시세가 크게 다릅니다.</li>
+          <li>각성 옵션은 해당 변신·인형·성물을 <strong>소환했을 때</strong>만 적용됩니다. 소환하지 않아도 컬렉션 효과는 유지됩니다.</li>
+          <li>각성 옵션 내용도 중요합니다. 스턴적중·스턴내성 등 PVP 유용 옵션 여부를 확인하세요.</li>
+          <li>각인은 변신·인형·성물과 별개 시스템입니다. 장비(무기·악세)에 적용되며, 각인 내용에 따라 가격 영향이 큽니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 리스크 확인 — 추가된 내용 -->
+    <div class="box red" style="margin-top:14px;">
+      <strong>🚫 선정 제외 기준 (하나라도 해당 시 즉시 탈락)</strong>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
+        <div class="risk-item block"><span class="risk-icon">❌</span><span>판매가가 시세의 <strong>50% 이하</strong>인 비정상 저가 — 사기 매물 가능성, 신뢰 리포트 포함 불가</span></div>
+        <div class="risk-item block"><span class="risk-icon">❌</span><span>스펙 근거 없이 <strong>시세의 2배 이상</strong> 고가</span></div>
+        <div class="risk-item block"><span class="risk-icon">❌</span><span>아이템매니아 내 판매자 <strong>신고·제재 이력</strong> 있는 경우</span></div>
+        <div class="risk-item block"><span class="risk-icon">❌</span><span>상세 설명란에 <strong>외부 직거래 유도 문구</strong> (연락처·SNS·카카오ID 등) 포함 — 에스크로 보호 불가, 사고 발생 시 플랫폼 책임 없음</span></div>
+        <div class="risk-item warn"><span class="risk-icon">⚠️</span><span>판매자 계정이 <strong>0거래 신규</strong>이면서 고가 매물인 경우 — 주의 필요</span></div>
+        <div class="risk-item warn"><span class="risk-icon">⚠️</span><span>등록일 기준 <strong>7일 초과</strong> 장기 미판매 매물 — 이유 있는 매물일 가능성</span></div>
+      </div>
+    </div>
+
+    <div class="box green">
+      <strong>이 단계에서의 목적</strong>
+      <ul>
+        <li>추천을 위한 원본 DB를 직접 만든다.</li>
+        <li>같은 조건끼리 비교할 수 있는 기본 축을 만든다.</li>
+        <li>제목 안의 핵심 스펙 용어를 파악해 이후 AI/자동화의 재료로 쓴다.</li>
+        <li>스펙 배점 가중치 기준을 팀 내 공유하여 일관된 판단 기준을 만든다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2번 -->
+  <section class="section">
+    <h2>2번. 외부 비교 데이터와 과거 기준을 붙인다</h2>
+    <p class="sub">아이템매니아 내부 데이터만으로는 '우리 안에서는 저렴해 보인다' 수준입니다. 게임 전문가가 검토하는 상품처럼 보이려면 외부 비교와 과거 기준이 붙어야 합니다.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag amber">2-1</span>
+        <h3>바로템 동일 조건 매물 비교</h3>
+        <ul>
+          <li>아이템매니아에서 수집한 대표 매물 20~30개를 먼저 골라 바로템에서 유사 매물을 찾습니다.</li>
+          <li>완전히 같은 매물이 없더라도 서버, 클래스, 레벨, 핵심 스펙이 유사한 가격대를 기록합니다.</li>
+          <li>목적은 '시장 전체에서 이 가격이 어느 정도인지' 확인하는 것입니다.</li>
+          <li><strong>중요:</strong> 바로템 비교 결과는 내부 참고용으로만 사용합니다. 외부 노출 시 "타 플랫폼 유사 매물 기준"으로 익명 표현합니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag navy">2-2</span>
+        <h3>리니지M 기존 거래/종료 시세 정리</h3>
+        <ul>
+          <li>이미 판매 완료된 계정, 종료된 거래, 과거 시세 자료를 묶어 '실거래 기준'을 만듭니다.</li>
+          <li>현재 가격이 높은지 낮은지 보려면 과거 거래 범위를 같이 봐야 합니다.</li>
+          <li>신화 스킬, 풀문양, 특정 성물처럼 가격 하한선을 만드는 요소는 별도 메모가 필요합니다.</li>
+          <li>인벤·루리웹 거래 게시판도 트렌드 참고용으로 활용합니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 가격 판단 공식 — 추가된 내용 -->
+    <div class="box blue" style="margin-top:14px;">
+      <strong>가격 위치값(P) 계산 공식 — 슬롯 배정 기준</strong>
+      <div class="formula">
+        <span class="hl">평균가</span> = 동일 조건 수집 매물 가격 합계 ÷ 매물 수<br>
+        <span class="hl">가격 위치값(P)</span> = (현재가 - 평균가) ÷ 평균가 × 100<br><br>
+        P &lt; <span class="hla">-20%</span> → 🟢 저가 슬롯 &nbsp;&nbsp; (평균보다 20% 이상 저렴)<br>
+        -20% ≤ P ≤ <span class="hl">+20%</span> → 🔵 적정가 슬롯 &nbsp;&nbsp; (평균 ±20% 이내)<br>
+        P &gt; <span class="hla">+20%</span> → 🔴 고가 슬롯 &nbsp;&nbsp; (평균보다 20% 이상 비쌈)<br><br>
+        <span style="color:#64748b;font-size:12px;">※ 가격 라벨만으로 판단하지 않는다. 스펙 점수·희소성·즉시활용 가능성을 함께 고려한다.</span>
+      </div>
+    </div>
+
+    <div class="box amber">
+      <strong>마케터가 2번에서 만드는 시트</strong>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:20%">비교 기준 매물</th>
+            <th style="width:18%">아이템매니아 가격</th>
+            <th style="width:18%">타 플랫폼 유사 가격</th>
+            <th style="width:18%">과거 거래/종료 가격</th>
+            <th>가격 위치(P)</th>
+            <th>메모</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>91요정 / 2신스 / 풀문양</td>
+            <td>320만원</td>
+            <td>340~360만원</td>
+            <td>300~330만원</td>
+            <td>-8% (적정가)</td>
+            <td>시장 대비 무난~저렴 구간</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flow">
+      <div class="flow-item">
+        <strong>아이템매니아</strong>
+        <span>현재 우리 플랫폼 기준 가격 (주 비교군)</span>
+      </div>
+      <div class="flow-item">
+        <strong>타 플랫폼</strong>
+        <span>외부 시장 기준 보조 참고 (내부용 · 익명 표기)</span>
+      </div>
+      <div class="flow-item">
+        <strong>과거 거래</strong>
+        <span>실거래/종료 기준 가격 (시세 하한선)</span>
+      </div>
+      <div class="flow-item">
+        <strong>현재 시세</strong>
+        <span>커뮤니티·인벤 보조 참고 (트렌드 파악)</span>
+      </div>
+    </div>
+
+    <div class="box green">
+      <strong>이 단계에서의 목적</strong>
+      <ul>
+        <li>'우리 플랫폼 안에서만 싼 상품'이 아니라 '시장 기준으로도 검토 가치 있는 상품'인지 판단한다.</li>
+        <li>추천 문구에 바로 쓸 수 있는 근거를 확보한다.</li>
+        <li>전문가 검토처럼 보이게 하는 신뢰 근거를 만든다.</li>
+        <li>클래스별 30건 이상 누적되면 기준가 자동 계산 구조로 전환한다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3번 -->
+  <section class="section">
+    <h2>3번. 추천 후보를 뽑고, AI는 설명용으로 붙인다</h2>
+    <p class="sub">이제부터 추천 후보를 뽑을 수 있습니다. 중요한 건 AI가 추천 대상을 처음 고르는 게 아니라, 이미 만든 비교 기준 위에서 설명과 정리를 도와주는 역할로 쓰는 것입니다.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-no">3-1</div>
+        <h3>같은 조건끼리 묶기</h3>
+        <p>서버 + 클래스 + 레벨 구간을 기준으로 최소 5개 이상 묶어 비교군을 만듭니다. 그 안에서 평균가, 최저가, 최고가를 계산합니다.</p>
+        <div class="check">예: 데포로쥬 / 요정 / 90~92레벨<br>우선 클래스: 뇌신 · 군주 · 요정</div>
+      </div>
+      <div class="step">
+        <div class="step-no">3-2</div>
+        <h3>추천 후보 3종 분류</h3>
+        <p>평균보다 낮지만 스펙이 괜찮은 상품, 평균 수준이지만 무난한 상품, 가격은 높지만 고스펙인 상품으로 나눕니다.</p>
+        <div class="check">🟢 저가 / 🔵 적정가 / 🔴 고가<br>각 슬롯 1개씩 · 하루 총 3개</div>
+      </div>
+      <div class="step">
+        <div class="step-no">3-3</div>
+        <h3>AI로 문장 만들기</h3>
+        <p>비교 근거가 정리된 뒤에 AI를 붙여 한 줄 요약과 상세 리포트 문장을 만듭니다. 이때 AI는 설명 담당입니다.</p>
+        <div class="check">근거 없는 추천 문구 금지<br>GM 검수 후 최종 게시 승인</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:18px;">
+      <div class="card">
+        <span class="tag green">저가 슬롯</span>
+        <h3>🟢 저가 포착</h3>
+        <p>같은 조건 평균보다 <strong>20% 이상</strong> 저렴하고, 제목상 핵심 스펙이 명확한 상품. 구매 전환 직접 유도 목적.</p>
+      </div>
+      <div class="card">
+        <span class="tag blue">적정가 슬롯</span>
+        <h3>🔵 적정가</h3>
+        <p>가격이 평균 <strong>±20% 이내</strong>에 있고, 매물 설명이 깔끔하며 리스크가 낮은 상품. 신뢰 확보 목적.</p>
+      </div>
+      <div class="card">
+        <span class="tag red">고가 슬롯</span>
+        <h3>🔴 고가</h3>
+        <p>가격은 높지만 신화 스킬, 풀문양, 희소 성물 등 <strong>비싼 이유가 분명</strong>한 상품. 플랫폼 신뢰 구축 목적.</p>
+      </div>
+    </div>
+
+    <!-- 가치 라벨 — 추가된 내용 -->
+    <div class="box blue">
+      <strong>가치 라벨 + 가격 라벨 2중 구조</strong>
+      <p style="margin-top:6px;">가격 라벨(저가·적정가·고가)만 붙이면 "비싸다/싸다"만 전달됩니다. 가치 라벨을 함께 붙여야 유저가 "왜 이 매물인지"를 즉각 판단할 수 있습니다.</p>
+      <div class="grid grid-4" style="margin-top:12px;">
+        <div style="background:#faf5ff;border:1px solid #ddd6fe;border-radius:12px;padding:12px;">
+          <div style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:4px;">💎 고스펙</div>
+          <div style="font-size:12px;color:#4c1d95;">상위권 완성형 계정. 전설 변신·인형, 상위 컬렉션 등 2개 이상 충족 시 사용. 근거 없으면 사용 금지.</div>
+        </div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;">
+          <div style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:4px;">🔥 HOT</div>
+          <div style="font-size:12px;color:#9a3412;">조회수·관심도 높은 매물. 아이템매니아 내 조회수 상위 10% 또는 찜하기 다수 매물.</div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;">
+          <div style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:4px;">🛡️ 안정형</div>
+          <div style="font-size:12px;color:#14532d;">스펙 편차 없고 즉시 활용 가능. 리스크 낮은 중간 수준 매물.</div>
+        </div>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;">
+          <div style="font-size:12px;font-weight:800;color:#92400e;margin-bottom:4px;">💎 희소매물</div>
+          <div style="font-size:12px;color:#78350f;">동일 조건 매물 3개 이하로 드문 경우. 희소성이 핵심 가치일 때만 사용.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="policy-row">
+      <div class="policy-col">
+        <h4>✅ AI에게 시킬 일</h4>
+        <ul>
+          <li>제목 안의 스펙 용어 정리</li>
+          <li>비교군 기준으로 한 줄 해설 문장 작성</li>
+          <li>상세 리포트 문장 초안 생성</li>
+          <li>스펙 체크포인트 3개 추출</li>
+          <li>가격 판단 근거 문장 정리</li>
+        </ul>
+      </div>
+      <div class="policy-col" style="border-color:#fecaca;background:#fff1f2;">
+        <h4 style="color:#b91c1c;">🚫 AI에게 시키면 안 되는 일</h4>
+        <ul>
+          <li>기준 데이터 없이 무작정 추천 대상 선정</li>
+          <li>실거래/시장 비교 없이 적정가 단정</li>
+          <li>근거 없는 "좋은 상품" 판정</li>
+          <li>"AI가 추천합니다" 같은 문구 생성 요청</li>
+          <li>바로템 직접 비교 문구 생성 (익명 표현으로만)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 솔드아웃 처리 — 추가된 내용 -->
+    <div class="box amber">
+      <strong>📦 판매완료 처리 정책</strong>
+      <ul>
+        <li>판매완료 감지 즉시 교체하지 않는다.</li>
+        <li><strong>"판매완료"</strong> 배지를 붙여 1~2시간 유지한다. (사회적 증거 효과 활용)</li>
+        <li>유지 후 대기 매물로 자연 교체한다.</li>
+        <li>매물 삭제·숨김 처리된 경우에는 즉시 교체한다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 운영 순서 요약 -->
+  <section class="section">
+    <h2>실무에서 바로 쓰는 운영 순서 요약</h2>
+    <p class="sub">마케터 입장에서는 아래 순서대로 움직이면 됩니다. 이 흐름이 만들어져야 나중에 개발, 자동화, AI 고도화도 붙일 수 있습니다.</p>
+    <div class="example">
+<strong>DAY 1~2</strong>
+- 아이템매니아 리니지M 계정 상품 최근 100개 수집
+- 상품번호 / 제목 / 가격 / 서버 / 클래스 / 레벨 / 등록일 / 링크 정리
+- 제목 안의 핵심 스펙 키워드 메모
+- <span class="eg-amber">우선 클래스: 뇌신 · 군주 · 요정</span>
+
+<strong>DAY 3~4</strong>
+- 대표 매물 20~30개 골라 타 플랫폼 유사 매물 비교 (내부 참고용)
+- 기존 거래건 / 종료 시세 / 현재 시세 자료 연결
+- 비교 시트 작성 + 가격 위치값(P) 계산
+- <span class="eg-amber">리스크 항목 (외부 직거래 유도·신고이력 등) 동시 확인</span>
+
+<strong>DAY 5</strong>
+- 같은 조건끼리 5개 이상 그룹화
+- 평균가 / 최저가 / 최고가 계산
+- 저가 / 적정가 / 고가 후보 1개씩 선정 (하루 3개)
+- 가치 라벨(💎·🔥·🛡️·희소) + 가격 라벨(🟢·🔵·🔴) 부여
+- AI로 리포트 문장 초안 생성
+- <span class="eg-green">GM 검수 후 게시 승인</span>
+</div>
+
+    <!-- KPI — 추가된 내용 -->
+    <div class="box blue" style="margin-top:14px;">
+      <strong>운영 성과 측정 KPI</strong>
+      <table class="kpi-table">
+        <thead>
+          <tr><th>지표명</th><th>정의</th><th>집계 기준</th><th>집계 주기</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>카드 CTR</strong></td><td>카드 클릭 수 ÷ 섹션 노출 수</td><td>UV 기준, 카드 단위 클릭 이벤트 분리</td><td>일별</td></tr>
+          <tr><td><strong>상세 진입률</strong></td><td>리포트 보기 클릭 ÷ 카드 클릭</td><td>"리포트 보기" 버튼만 집계 (구매하기 제외)</td><td>일별</td></tr>
+          <tr><td><strong>구매 전환율</strong></td><td>구매 완료 ÷ 상세 진입</td><td>상세 진입 후 <strong>72시간 이내</strong> 구매 완료 귀속</td><td>일별·주별</td></tr>
+          <tr><td><strong>판매 속도</strong></td><td>노출 후 판매완료까지 평균 일수</td><td>노출 시각 ~ 판매완료 시각 차이</td><td>매물별</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 신뢰도 구조 -->
+  <section class="section">
+    <h2>전문가 검토처럼 보이게 만드는 핵심</h2>
+    <p class="sub">유저가 믿는 건 AI가 아니라 '근거가 있는 판단'입니다. 그래서 문구보다 먼저 근거 구조가 필요합니다.</p>
+
+    <!-- 신뢰 체인 — 추가된 내용 -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:18px;overflow-x:auto;">
+      <div style="flex:1;text-align:center;padding:14px 10px;background:#fff;border:1px solid #e2e8f0;border-right:none;border-radius:14px 0 0 14px;min-width:90px;">
+        <div style="font-size:18px;margin-bottom:5px;">🏦</div>
+        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:3px;">내부 DB</div>
+        <div style="font-size:11px;color:#64748b;">실거래 데이터 기반 시세</div>
+      </div>
+      <div style="color:#94a3b8;font-size:16px;padding:0 4px;flex-shrink:0;">›</div>
+      <div style="flex:1;text-align:center;padding:14px 10px;background:#fff;border:1px solid #e2e8f0;border-right:none;min-width:90px;">
+        <div style="font-size:18px;margin-bottom:5px;">🤖</div>
+        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:3px;">AI 분석</div>
+        <div style="font-size:11px;color:#64748b;">스펙·가격 자동 판단</div>
+      </div>
+      <div style="color:#94a3b8;font-size:16px;padding:0 4px;flex-shrink:0;">›</div>
+      <div style="flex:1;text-align:center;padding:14px 10px;background:#fff;border:1px solid #e2e8f0;border-right:none;min-width:90px;">
+        <div style="font-size:18px;margin-bottom:5px;">👤</div>
+        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:3px;">GM 검수</div>
+        <div style="font-size:11px;color:#64748b;">최종 확인 · 게시 승인</div>
+      </div>
+      <div style="color:#94a3b8;font-size:16px;padding:0 4px;flex-shrink:0;">›</div>
+      <div style="flex:1;text-align:center;padding:14px 10px;background:#fff;border:1px solid #e2e8f0;border-right:none;min-width:90px;">
+        <div style="font-size:18px;margin-bottom:5px;">✨</div>
+        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:3px;">매니아 심사단</div>
+        <div style="font-size:11px;color:#64748b;">외부 노출 명칭 통일</div>
+      </div>
+      <div style="color:#94a3b8;font-size:16px;padding:0 4px;flex-shrink:0;">›</div>
+      <div style="flex:1;text-align:center;padding:14px 10px;background:#f0fdf4;border:2px solid #86efac;border-radius:0 14px 14px 0;min-width:90px;">
+        <div style="font-size:18px;margin-bottom:5px;">🛒</div>
+        <div style="font-size:12px;font-weight:700;color:#14532d;margin-bottom:3px;">유저 구매 판단</div>
+        <div style="font-size:11px;color:#166534;">판단 기준 제공 → 전환</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag green">해야 함</span>
+        <ul>
+          <li>동일 조건 몇 개를 비교했는지 말하기</li>
+          <li>현재 가격이 평균 대비 어느 정도인지 보여주기</li>
+          <li>과거 거래 기준이 어떤지 같이 보기</li>
+          <li>왜 비싸고 왜 싼지 스펙 이유를 말하기</li>
+          <li>고가 매물은 반드시 비싼 이유를 설명하기</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag red">하지 말아야 함</span>
+        <ul>
+          <li>"AI가 추천합니다" 같은 문구 앞세우기</li>
+          <li>근거 없이 HOT, 저평가, 적정가 붙이기</li>
+          <li>시장 비교 없이 내부 가격만 보고 판단하기</li>
+          <li>설명 없이 가격만 보여주기</li>
+          <li>바로템을 직접 언급하거나 외부에 노출하기</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box green" style="margin-top:14px;">
+      <strong>한 줄 결론</strong>
+      <p>마케터가 처음 해야 할 일은 추천 문구를 만드는 게 아니라, 추천의 근거가 되는 비교 데이터 판을 만드는 것입니다. 그 판이 만들어지면 AI는 훨씬 쉽게 붙고, '전문가 검토' 같은 신뢰도도 자연스럽게 설계할 수 있습니다.</p>
+    </div>
+  </section>
+
+  <div class="footer">리니지M 계정 추천 운영 시작 가이드 · 마케터 실무용 · 2026.03.18</div>
+</div>
+</body>
+</html>
