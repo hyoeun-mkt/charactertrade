@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>리니지M 계정 거래 AI 리포트 시스템 통합본</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#0f172a;
+      --blue:#2563eb;
+      --blue-2:#1d4ed8;
+      --sky:#0ea5e9;
+      --teal:#0f766e;
+      --green:#16a34a;
+      --amber:#d97706;
+      --red:#dc2626;
+      --slate:#475569;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --soft-blue:#eff6ff;
+      --soft-green:#f0fdf4;
+      --soft-amber:#fffbeb;
+      --soft-red:#fef2f2;
+      --shadow:0 20px 40px rgba(15,23,42,.08);
+      --radius:24px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+      background:linear-gradient(180deg,#eff6ff 0,#f8fafc 220px,#f8fafc 100%);
+      color:var(--navy);
+      line-height:1.7;
+      word-break:keep-all;
+    }
+    .wrap { max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+    .nav {
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(12px);
+      background:rgba(248,250,252,.82); border-bottom:1px solid rgba(226,232,240,.9);
+      margin:0 -20px 24px; padding:0 20px;
+    }
+    .nav-inner {
+      max-width:1240px; margin:0 auto; display:flex; flex-wrap:nowrap; gap:12px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; padding:12px 0; -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+    }
+    .nav a {
+      text-decoration:none; color:var(--slate); font-size:13px; font-weight:700;
+      padding:8px 12px; border-radius:999px; background:#fff; border:1px solid var(--line);
+    }
+    .hero {
+      background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 52%,#60a5fa 100%);
+      color:#fff; border-radius:32px; padding:44px 40px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    }
+    .hero:before,.hero:after {
+      content:""; position:absolute; border-radius:999px; background:rgba(255,255,255,.08);
+    }
+    .hero:before { width:340px; height:340px; right:-70px; top:-90px; }
+    .hero:after { width:180px; height:180px; right:240px; bottom:-60px; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.2);
+      font-size:12px; font-weight:800; letter-spacing:.05em; margin-bottom:16px;
+    }
+    h1 {
+      margin:0 0 12px; font-size:40px; line-height:1.22; letter-spacing:-.035em;
+      position:relative; z-index:1;
+    }
+    .hero p { margin:0; max-width:920px; color:rgba(255,255,255,.92); font-size:16px; position:relative; z-index:1; }
+    .meta {
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; position:relative; z-index:1;
+    }
+    .meta span {
+      display:inline-flex; align-items:center; padding:7px 11px; border-radius:999px;
+      font-size:12px; font-weight:700; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18);
+    }
+    .section {
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:0 12px 28px rgba(15,23,42,.05); padding:30px; margin-top:22px;
+    }
+    .section h2 { margin:0 0 12px; font-size:30px; letter-spacing:-.03em; line-height:1.3; }
+    .subhead {
+      color:var(--blue); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px;
+    }
+    .desc { color:var(--slate); font-size:15px; margin:0 0 18px; }
+    .grid { display:grid; gap:18px; }
+    .grid-2 { grid-template-columns:1fr 1fr; }
+    .grid-3 { grid-template-columns:repeat(3,1fr); }
+    .grid-4 { grid-template-columns:repeat(4,1fr); }
+    .card {
+      background:#fff; border:1px solid var(--line); border-radius:20px; padding:20px;
+    }
+    .card h3 { margin:0 0 8px; font-size:19px; letter-spacing:-.02em; }
+    .card p { margin:0; font-size:14px; color:var(--slate); }
+    .callout {
+      border-radius:20px; padding:18px 20px; border:1px solid var(--line); margin-top:16px;
+    }
+    .callout strong { display:block; margin-bottom:6px; font-size:16px; }
+    .blue { background:var(--soft-blue); border-color:#bfdbfe; }
+    .green { background:var(--soft-green); border-color:#bbf7d0; }
+    .amber { background:var(--soft-amber); border-color:#fde68a; }
+    .red { background:var(--soft-red); border-color:#fecaca; }
+    .kpi-box strong.big { font-size:26px; color:var(--blue); margin-bottom:4px; }
+    .flow {
+      display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:12px;
+    }
+    .step {
+      border:1px solid var(--line); border-radius:18px; padding:16px; background:#fff; position:relative; min-height:150px;
+    }
+    .step:not(:last-child)::after {
+      content:none;
+    }
+    .step-no {
+      display:inline-block; padding:4px 8px; border-radius:999px; background:#dbeafe; color:var(--blue-2);
+      font-size:11px; font-weight:800; margin-bottom:10px;
+    }
+    ul { margin:10px 0 0; padding-left:18px; color:var(--slate); font-size:14px; }
+    li + li { margin-top:6px; }
+    table { width:100%; border-collapse:collapse; font-size:14px; margin-top:12px; }
+    th, td { border:1px solid var(--line); padding:12px 10px; text-align:left; vertical-align:top; }
+    th { background:#f8fafc; font-weight:800; }
+    .label-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .label {
+      display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800;
+    }
+    .l-green { background:#dcfce7; color:#15803d; }
+    .l-blue { background:#dbeafe; color:#1d4ed8; }
+    .l-red { background:#fee2e2; color:#b91c1c; }
+    .l-amber { background:#fef3c7; color:#b45309; }
+    .l-purple { background:#f3e8ff; color:#7e22ce; }
+    .timeline { display:grid; gap:12px; margin-top:14px; }
+    .time-item {
+      display:grid; grid-template-columns:160px 1fr; gap:14px; padding:16px; border:1px solid var(--line); border-radius:18px; background:#fff;
+    }
+    .time { font-size:12px; font-weight:800; color:var(--blue); }
+    .foot {
+      text-align:center; color:#64748b; font-size:13px; margin-top:28px;
+    }
+
+    .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .table-scroll table { min-width:720px; }
+    @media print {
+      body { background:#fff; }
+      .nav { position:static; margin:0 0 16px; backdrop-filter:none; background:#fff; border-bottom:1px solid #cbd5e1; }
+      .nav-inner { white-space:normal; overflow:visible; flex-wrap:wrap; gap:8px; padding:8px 0; }
+      .nav a { background:#fff; }
+      .wrap { max-width:none; padding:0; }
+      .hero, .section, .card, .time-item, .step { box-shadow:none !important; break-inside:avoid; page-break-inside:avoid; }
+      .flow, .grid, .timeline { break-inside:avoid; page-break-inside:avoid; }
+      .table-scroll { overflow:visible; }
+      .table-scroll table { min-width:0; width:100%; }
+    }
+
+    @media (max-width:1024px) {
+      .grid-2,.grid-3,.grid-4,.flow { grid-template-columns:1fr; }
+      .step:not(:last-child)::after { display:none; }
+      .time-item { grid-template-columns:1fr; }
+      h1 { font-size:32px; }
+      .section h2 { font-size:26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <a href="#overview">개요</a>
+      <a href="#strategy">전략 정의</a>
+      <a href="#architecture">전체 아키텍처</a>
+      <a href="#data">데이터 구조</a>
+      <a href="#pricing">적정가 산출</a>
+      <a href="#ui">서비스/UI</a>
+      <a href="#ops">운영 프로세스</a>
+      <a href="#db">DB 설계</a>
+      <a href="#risk">리스크/정책</a>
+      <a href="#roadmap">로드맵</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="hero" id="overview">
+      <div class="eyebrow">리니지M 계정거래 · AI 상품 리포트 통합 문서</div>
+      <h1>리니지M AI 상품 리포트 및<br>계정 적정가 산출·운영·아키텍처 통합안</h1>
+      <p>기존에 공유된 기획안, 데이터 구조화 문서, 운영 매뉴얼, 시스템 아키텍처, 적정가 산출 로직, DB 설계안을 하나의 실행형 HTML 문서로 통합했습니다. 본 문서는 요약본이 아니라, 실무 검토와 유관부서 공유에 바로 사용할 수 있도록 전체 구조를 한 흐름으로 재편집한 통합안입니다.</p>
+      <div class="meta">
+        <span>기준 게임: 리니지M</span>
+        <span>목적: 상품 판단 플랫폼 전환</span>
+        <span>적용 범위: 기획 · 데이터 · 운영 · 시스템</span>
+        <span>문서 성격: 통합 정리본</span>
+      </div>
+    </section>
+
+    <section class="section" id="strategy">
+      <div class="subhead">01. 프로젝트 정의</div>
+      <h2>이 서비스의 본질은 ‘추천’이 아니라 ‘판단 기준 제공’입니다</h2>
+      <p class="desc">핵심은 좋은 매물을 단순히 골라주는 것이 아니라, 플랫폼이 동일 조건 매물과 실거래 기준을 바탕으로 가격과 스펙을 해석해 유저의 판단을 대신 도와주는 구조를 만드는 것입니다.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>기존 구조</h3>
+          <p>제목과 가격 중심의 리스트형 노출 구조입니다. 유저가 매물의 적정가, 희소성, 위험도를 직접 판단해야 하므로 탐색 비용이 높고 신뢰 형성이 어렵습니다.</p>
+        </div>
+        <div class="card">
+          <h3>전환 구조</h3>
+          <p>동일 조건 비교, 적정가 범위, 핵심 스펙, 한 줄 분석, 리포트 근거를 함께 보여주는 판단 지원형 콘텐츠 구조입니다. 이 구조를 통해 클릭률, 체류시간, 구매 전환까지 연결합니다.</p>
+        </div>
+      </div>
+      <div class="callout blue">
+        <strong>한 줄 정의</strong>
+        단순 상품 노출 플랫폼에서, 데이터 기반으로 가격과 가치를 해석해주는 판단 지원 플랫폼으로 전환합니다.
+      </div>
+    </section>
+
+    <section class="section" id="architecture">
+      <div class="subhead">02. End-to-End 구조</div>
+      <h2>데이터 수집부터 리포트 노출까지 전체 구조</h2>
+      <div class="flow">
+        <div class="step"><div class="step-no">STEP 1</div><h3>수집</h3><p>아이템매니아, 바로템, 공식 시세, 판매 제목/본문/이미지, 실거래 이력을 확보합니다.</p></div>
+        <div class="step"><div class="step-no">STEP 2</div><h3>파싱</h3><p>은어·축약어 사전과 OCR/NLP로 스펙과 자산 정보를 정형화합니다.</p></div>
+        <div class="step"><div class="step-no">STEP 3</div><h3>구조화</h3><p>서버, 클래스, 레벨, 핵심 스펙, 거래 가능한 자산, 실거래 포지션으로 분류합니다.</p></div>
+        <div class="step"><div class="step-no">STEP 4</div><h3>가치 산출</h3><p>기본 스펙 가치, 내실/성장 가치, 비각인 자산 가치, 프리미엄을 합산해 적정가를 계산합니다.</p></div>
+        <div class="step"><div class="step-no">STEP 5</div><h3>리포트/노출</h3><p>저가 포착·적정가 추천·고스펙 라벨과 한 줄 분석, 상세 리포트를 생성해 메인에 노출합니다.</p></div>
+      </div>
+      <div class="grid grid-3" style="margin-top:18px;">
+        <div class="card"><h3>핵심 입력</h3><p>판매글 제목, 본문, 이미지, 현재가, 실거래 이력, 공식 시세, 경쟁 플랫폼 시세</p></div>
+        <div class="card"><h3>핵심 계산</h3><p>동일 조건 비교군 평균, 가치 점수, 순수 몸값, 위험 신호, 가격 포지션</p></div>
+        <div class="card"><h3>핵심 출력</h3><p>카드 라벨, 분석 문구, 상세 리포트, 관리용 점수/근거 테이블</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="data">
+      <div class="subhead">03. 데이터 구조화</div>
+      <h2>내부·외부 데이터와 구조화 원칙</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>내부 데이터 축</h3>
+          <ul>
+            <li>아이템매니아 판매중 매물</li>
+            <li>아이템매니아 판매완료 이력</li>
+            <li>거래 완료 시점 및 최종 거래가</li>
+            <li>판매자 검증·거래 상태·게시글 이미지</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>외부 데이터 축</h3>
+          <ul>
+            <li>바로템 유사 매물 가격</li>
+            <li>리니지M 공식 시세 기준</li>
+            <li>다이아↔현금 환산 지표</li>
+            <li>비각인 자산 시세 DB</li>
+          </ul>
+        </div>
+      </div>
+      <div class="table-scroll"><table>
+        <thead>
+          <tr>
+            <th style="width:24%;">구분</th>
+            <th style="width:26%;">대표 항목</th>
+            <th>처리 방향</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>기준이 있는 카테고리</td>
+            <td>클래스, 등급, 강화, 축복, 장비, 장신구, 스킬카드</td>
+            <td>공식 시세·실거래가 기반으로 직접 참조</td>
+          </tr>
+          <tr>
+            <td>기준을 만들어야 하는 카테고리</td>
+            <td>변신, 마법인형, 성물, 문양, 수호성, 엘릭서</td>
+            <td>유사 매물 그룹핑과 가중치 테이블을 통해 기준가 생성</td>
+          </tr>
+          <tr>
+            <td>자연어 파싱 대상</td>
+            <td>신변, 2신스, 풀문양, 4이동악세, 근뎀, 컬렉 등</td>
+            <td>은어·축약어 사전과 NLP 엔티티 추출 적용</td>
+          </tr>
+          <tr>
+            <td>이미지 분석 대상</td>
+            <td>캐릭터 정보, 장비창, 컬렉션, 스탯 캡처</td>
+            <td>객체 탐지 + OCR + 담당자 검수의 하이브리드 구조 적용</td>
+          </tr>
+        </tbody>
+      </table></div>
+      <div class="callout amber">
+        <strong>선행 데이터 4종</strong>
+        실거래 완료 DB, 비각인 아이템 시세 DB, 다이아↔현금 환산 지표, 리니지M 은어 매핑 사전이 선행 확보 데이터로 필요합니다.
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="subhead">04. 적정가 산출 로직</div>
+      <h2>적정가는 ‘기본 스펙 + 내실/성장 + 비각인 자산’으로 계산합니다</h2>
+      <div class="callout blue">
+        <strong>기본 공식</strong>
+        적정가 = 기본 스펙 가치 + 내실/성장 가치 + 비각인 자산 가치 + 희귀 프리미엄 보정
+      </div>
+      <div class="grid grid-3" style="margin-top:18px;">
+        <div class="card">
+          <h3>STEP 1. 기본 스펙 가치</h3>
+          <ul>
+            <li>직업, 레벨, 신화/전설 변신 개수</li>
+            <li>신화/전설 스킬 개수</li>
+            <li>동일 클래스·동일 베이스 스펙 완료 매물 N건 평균가 활용</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>STEP 2. 내실 및 성장 가치</h3>
+          <ul>
+            <li>풀문양, 전설/영웅 성물, 이동 악세서리</li>
+            <li>컬렉션, 엘릭서, 수호성, 성장 누적 스펙</li>
+            <li>회귀분석 또는 가중치 테이블로 단위당 상승 단가 반영</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>STEP 3. 비각인 자산 가치</h3>
+          <ul>
+            <li>거래 가능한 장비와 다이아를 실시간 시세로 환산</li>
+            <li>통정리 할인율 70~80% 반영</li>
+            <li>총 판매가에서 분리해 순수 몸값 산출</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid grid-2" style="margin-top:18px;">
+        <div class="card">
+          <h3>대표 점수 기준</h3>
+          <ul>
+            <li>신화: 20점 / 전설: 5점 / 영웅: 2점</li>
+            <li>각성 완료 시 1.5배 보정</li>
+            <li>풀 문양은 고득점 및 하한선 보정</li>
+            <li>신화 스킬은 점수 외 최소 가격 하한선 설정 가능</li>
+            <li>0티어 성물은 전체 가치 +15% 가산 가능</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>순수 몸값 개념</h3>
+          <p>총 판매가에서 비각인 장비의 NC 시세 환산가를 제외해 ‘계정 본체만의 몸값’을 따로 판단합니다. 이 구조를 적용하면 “비각인 가치 제외 시 몸값 기준 저렴하다”는 식의 강한 분석 문구를 만들 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="table-scroll"><table>
+        <thead>
+          <tr>
+            <th style="width:20%;">등급 구간</th>
+            <th style="width:24%;">점수 기준</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>브론즈</td><td>0 ~ 50점</td><td>기초를 다진 입문형 계정</td></tr>
+          <tr><td>실버</td><td>51 ~ 200점</td><td>전설급 스펙이 형성되기 시작한 성장 구간</td></tr>
+          <tr><td>골드</td><td>201 ~ 500점</td><td>신화 보유 혹은 전설 풀컬렉션의 상급 매물</td></tr>
+          <tr><td>다이아</td><td>501점 이상</td><td>서버 랭커급 하이엔드 종결 자산</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="section" id="ui">
+      <div class="subhead">05. 서비스 기획 및 UI</div>
+      <h2>메인페이지에서 ‘판단형 카드’로 보여주는 구조</h2>
+      <p class="desc">추천 섹션은 배너 아래, 상품리스트 위의 핵심 위치에 배치하고 카드 3개를 기본 구성으로 운영합니다. 사용자는 가격·스펙·리포트를 동시에 확인하며 탐색과 구매를 함께 진행합니다.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>저가 포착</h3>
+          <p>동일 조건군 대비 현저히 낮은 가격 구간의 매물입니다. 빠른 거래 가능성과 가격 메리트를 강조합니다.</p>
+        </div>
+        <div class="card">
+          <h3>적정가 추천</h3>
+          <p>시장 평균 범위에 위치한 신뢰형 매물입니다. 무난하고 설명이 잘 된 선택지라는 인상을 줍니다.</p>
+        </div>
+        <div class="card">
+          <h3>고스펙</h3>
+          <p>가격은 높지만 완성도와 희소성이 뚜렷한 상위권 매물입니다. 왜 비싼지 설명하는 것이 핵심입니다.</p>
+        </div>
+      </div>
+      <div class="label-row">
+        <span class="label l-green">🟢 저가 포착</span>
+        <span class="label l-blue">🔵 적정가 추천</span>
+        <span class="label l-red">🔴 고스펙</span>
+        <span class="label l-amber">🔥 HOT</span>
+        <span class="label l-purple">💎 희소매물</span>
+      </div>
+      <div class="callout red">
+        <strong>외부 노출 용어 원칙</strong>
+        ‘AI 리포트’, ‘AI 추천’, ‘고평가’ 같은 표현은 지양하고, ‘매니아 자문단 분석’, ‘전문가 분석’, ‘고스펙’, ‘프리미엄’, ‘완성형’ 중심으로 표현합니다.
+      </div>
+      <div class="callout green">
+        <strong>카드 기본 구성</strong>
+        가격 위치 그래프, 핵심 스펙 3~4개, 라벨 2종(가치 라벨 + 가격 라벨), 한 줄 분석, 리포트 보기, 구매하기 버튼을 함께 배치합니다.
+      </div>
+    </section>
+
+    <section class="section" id="ops">
+      <div class="subhead">06. 운영 프로세스</div>
+      <h2>초기에는 ‘AI 초벌 + 담당자 검수’ 방식이 가장 현실적입니다</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>1단계: 수동 운영 중심</h3>
+          <ul>
+            <li>담당자가 최신순 매물 10~15개 후보 수집</li>
+            <li>동일 서버·클래스·유사 레벨 비교군 5~10개 구성</li>
+            <li>체크리스트와 점수 계산기로 3개 슬롯 선정</li>
+            <li>리포트 문구 수동 작성 및 게시</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2단계: 하이브리드 운영</h3>
+          <ul>
+            <li>시스템이 제목·본문·이미지에서 핵심 5대 지표를 추출</li>
+            <li>담당자가 스크린샷과 추출 데이터를 대조해 검수</li>
+            <li>비각인 자산과 순수 몸값을 최종 확정</li>
+            <li>시스템은 후보 추천, 사람은 최종 승인 역할 수행</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="time-item"><div class="time">AM 09:00</div><div><strong>매물 풀 수집</strong><br>아이템매니아 리니지M 계정 탭에서 후보 매물을 수집하고 기록합니다.</div></div>
+        <div class="time-item"><div class="time">AM 09:30</div><div><strong>비교군 구성 및 점수 산출</strong><br>동일 조건 5개 이상 비교군을 만들고 평균가·최저·최고·P값을 계산합니다.</div></div>
+        <div class="time-item"><div class="time">AM 10:00</div><div><strong>슬롯 확정</strong><br>저가 포착, 적정가 추천, 고스펙 각 1개씩 확정합니다.</div></div>
+        <div class="time-item"><div class="time">AM 10:30</div><div><strong>리포트 작성</strong><br>한 줄 요약, 핵심 스펙, 자문단 분석 문구를 작성합니다.</div></div>
+        <div class="time-item"><div class="time">AM 11:00 이후</div><div><strong>게시 및 모니터링</strong><br>메인에 등록 후 오후 2시·6시에 상태를 확인하고 KPI를 기록합니다.</div></div>
+      </div>
+      <div class="callout amber">
+        <strong>운영상 반드시 필요한 정책</strong>
+        메인 노출 매물의 가격 수정 시 재산정 또는 등급 해제, 판매완료 후 1~2시간 솔드아웃 유지, 허위 스펙 적발 시 강한 패널티 정책이 함께 정의되어야 합니다.
+      </div>
+    </section>
+
+    <section class="section" id="db">
+      <div class="subhead">07. DB 및 시스템 설계</div>
+      <h2>관계형 DB + 멀티모달 추출 구조로 설계합니다</h2>
+      <div class="grid grid-4">
+        <div class="card kpi-box"><strong class="big">9</strong><p>핵심 테이블 수</p></div>
+        <div class="card kpi-box"><strong class="big">80+</strong><p>설계 컬럼 수</p></div>
+        <div class="card kpi-box"><strong class="big">3</strong><p>AI 도구 활용 축</p></div>
+        <div class="card kpi-box"><strong class="big">높음</strong><p>초기 구현 실현 가능성</p></div>
+      </div>
+      <div class="table-scroll"><table>
+        <thead>
+          <tr>
+            <th style="width:24%;">테이블군</th>
+            <th>주요 역할</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Sales_Post / User_Account</td><td>판매 게시글, 판매자 상태, 인증 여부, 흥정 여부, 게시글 상태 관리</td></tr>
+          <tr><td>Character_Main</td><td>캐릭터명, 클래스, 레벨, 전투력, 기본 스탯, 재화 보유량 저장</td></tr>
+          <tr><td>Collections</td><td>변신, 마법인형, 성물, 탈것 등 수집형 자산과 각성 여부 관리</td></tr>
+          <tr><td>Equipment</td><td>장비명, 슬롯, 강화 수치, 축복 여부, 비각인 자산 구분</td></tr>
+          <tr><td>Skills / Progression_Systems</td><td>스킬 등급, 강화, 엘릭서, 수호성, 성장노드, 패턴 등 성장형 시스템 저장</td></tr>
+          <tr><td>Transaction_History</td><td>최종 거래가, 거래 완료일, 상태, 거래 포지션 분석용 실거래 데이터</td></tr>
+          <tr><td>Post_Images</td><td>캐릭터 정보/장비/컬렉션/스탯 캡처 이미지 관리</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid grid-3" style="margin-top:18px;">
+        <div class="card">
+          <h3>텍스트 분석</h3>
+          <p>NLP 기반 엔티티 추출과 리니지M 전용 사전으로 판매글 제목·본문의 핵심 스펙을 정규화합니다.</p>
+        </div>
+        <div class="card">
+          <h3>이미지 분석</h3>
+          <p>객체 탐지와 OCR로 스크린샷의 스탯·장비·컬렉션 정보를 추출하고 담당자가 검수합니다.</p>
+        </div>
+        <div class="card">
+          <h3>외부 도구 활용</h3>
+          <p>Thunderbit, Prisync, Priceva 같은 도구를 활용해 이미지·가격 정보 자동 수집, 경쟁 시세 모니터링을 검토할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="risk">
+      <div class="subhead">08. 리스크 및 정책</div>
+      <h2>정책 없이 시작하면 서비스 신뢰가 오히려 약해질 수 있습니다</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>허위 입력 리스크</h3><p>제목 과장, 이미지 조작, 없는 스펙 기재 가능성이 있어 검수 및 패널티 체계가 필요합니다.</p></div>
+        <div class="card"><h3>가격 변경 리스크</h3><p>메인 노출 후 판매자가 가격을 바꾸면 라벨과 분석이 무력화될 수 있어 재산정 정책이 필요합니다.</p></div>
+        <div class="card"><h3>결측치 리스크</h3><p>스킬, 전설 개수, 컬렉션 수치가 빠진 경우 0 처리 대신 평균치 보정 등 룰이 필요합니다.</p></div>
+      </div>
+      <div class="grid grid-2" style="margin-top:18px;">
+        <div class="callout red">
+          <strong>법적/표현 리스크</strong>
+          평가는 절대 가치 보증이 아니라 데이터 기반 가이드라인임을 명확히 고지해야 합니다.
+        </div>
+        <div class="callout amber">
+          <strong>시세 유효기간 정책</strong>
+          최근 N개월 데이터만 반영할지, 대규모 업데이트 시 기준가를 리셋할지 운영 기준이 필요합니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="subhead">09. 실행 로드맵</div>
+      <h2>단기 구현 → 하이브리드 자동화 → 고도화 순으로 가야 합니다</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>1단계. 즉시 실행</h3>
+          <ul>
+            <li>리니지M 1개 게임 한정 적용</li>
+            <li>담당자 수동 선정 + 템플릿 리포트 운영</li>
+            <li>동일 조건 평균가/최저가/최고가 산출</li>
+            <li>저가 포착/적정가 추천/고스펙 3카드 운영</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2단계. 정교화</h3>
+          <ul>
+            <li>제목/본문 자연어 파싱 자동화</li>
+            <li>OCR 기반 스펙 초벌 추출</li>
+            <li>후보 매물 자동 추천 + 담당자 승인</li>
+            <li>가중치 및 비교군 기준 정교화</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3단계. 고도화</h3>
+          <ul>
+            <li>회귀/머신러닝 기반 가치 보정</li>
+            <li>개인화 추천 및 관심 매물 알림</li>
+            <li>게임 확장 및 가격 예측 고도화</li>
+            <li>관리자용 기준가 테이블 자동 생성</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout green">
+        <strong>최종 결론</strong>
+        지금 필요한 것은 완벽한 AI 자동 평가가 아니라, 수동 운영으로도 신뢰를 만들 수 있는 ‘판단형 상품 리포트 구조’를 먼저 만드는 것입니다. 데이터가 누적되면 그 위에 자동화와 예측 기능을 단계적으로 올릴 수 있습니다.
+      </div>
+    </section>
+
+    <div class="foot">리니지M AI 상품 리포트 통합안 · 기획/데이터/운영/아키텍처 통합 HTML</div>
+  </div>
+</body>
+</html>
