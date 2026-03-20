@@ -191,28 +191,58 @@
     <div class="steps">
       <div class="step-item">
         <div class="step-num">STEP 01</div>
+        <div class="step-title">파일 준비</div>
+        <div class="step-desc">상품 3개분 파일 준비<br>텍스트 3개 + 이미지 3개 = 총 6개</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">STEP 02</div>
         <div class="step-title">프롬프트 복사</div>
         <div class="step-desc">아래 전체 프롬프트를 복사합니다.</div>
       </div>
       <div class="step-item">
-        <div class="step-num">STEP 02</div>
-        <div class="step-title">AI에 붙여넣기</div>
-        <div class="step-desc">Claude / GPT-4o / Gemini 중 어디든 붙여넣습니다.</div>
-      </div>
-      <div class="step-item">
         <div class="step-num">STEP 03</div>
-        <div class="step-title">파일 첨부</div>
-        <div class="step-desc">같은 상품의 스크린샷(png)과 텍스트를 함께 첨부합니다.</div>
+        <div class="step-title">AI + 파일 첨부</div>
+        <div class="step-desc">Claude / GPT-4o / Gemini에 프롬프트 붙여넣기 후 6개 파일 한 번에 첨부</div>
       </div>
       <div class="step-item">
         <div class="step-num">STEP 04</div>
-        <div class="step-title">결과 저장</div>
-        <div class="step-desc">출력된 테이블을 엑셀/스프레드시트에 붙여넣어 누적합니다.</div>
+        <div class="step-title">결과 확인</div>
+        <div class="step-desc">분석 결과 확인. 이상 없으면 다음 단계로.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">STEP 05</div>
+        <div class="step-title">즉시 저장</div>
+        <div class="step-desc">저장용 테이블을 엑셀에 복사·붙여넣기. 분석할 때마다 바로 저장.</div>
       </div>
     </div>
-    <div class="notice n-amber" style="margin-top:14px;">
+
+    <div style="margin-top:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;">
+      <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:10px;">📋 실무 운영 루틴</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;">
+        <div style="background:#dbeafe;color:#1d4ed8;padding:6px 12px;border-radius:8px;font-weight:700;">① 바로템 거래완료 3개 수집</div>
+        <div style="color:#94a3b8;">→</div>
+        <div style="background:#dbeafe;color:#1d4ed8;padding:6px 12px;border-radius:8px;font-weight:700;">② txt 3개 + png 3개 준비</div>
+        <div style="color:#94a3b8;">→</div>
+        <div style="background:#dbeafe;color:#1d4ed8;padding:6px 12px;border-radius:8px;font-weight:700;">③ AI에 동시 분석 요청</div>
+        <div style="color:#94a3b8;">→</div>
+        <div style="background:#dcfce7;color:#15803d;padding:6px 12px;border-radius:8px;font-weight:700;">④ 결과 확인 후 즉시 저장</div>
+        <div style="color:#94a3b8;">→</div>
+        <div style="background:#f1f5f9;color:#475569;padding:6px 12px;border-radius:8px;">반복</div>
+      </div>
+    </div>
+
+    <div class="notice n-amber" style="margin-top:12px;">
       <span class="n-icon">⚠️</span>
-      <div><strong>파일명 규칙:</strong> 같은 상품의 스크린샷과 텍스트는 확장자만 다르고 파일명이 동일해야 합니다. 예: <code>260309_brt_0001.png</code> + <code>260309_brt_0001.txt</code></div>
+      <div>
+        <strong>파일명 규칙:</strong> 파일명이 같고 확장자만 다른 것이 같은 상품입니다.<br>
+        예: <code>260309_brt_0001.txt</code> + <code>260309_brt_0001.png</code> → 상품 1<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<code>260309_brt_0002.txt</code> + <code>260309_brt_0002.png</code> → 상품 2<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<code>260309_brt_0003.txt</code> + <code>260309_brt_0003.png</code> → 상품 3
+      </div>
+    </div>
+    <div class="notice n-blue" style="margin-top:10px;">
+      <span class="n-icon">💡</span>
+      <div><strong>한 번에 최대 5개까지:</strong> 이미지 파일은 컨텍스트를 많이 차지합니다. 5개 초과 시 누락·혼동 오류 발생 위험. <strong>3~5개가 최적</strong>입니다.</div>
     </div>
   </div>
 
@@ -301,9 +331,14 @@
 2. 리포트 생성: 상품 상세 리포트(가격 위치·스펙 평가·활용 가능성)에 필요한 문장 생성
 
 <span class="hl-blue">[입력 데이터]</span>
-- 텍스트 파일: 거래완료가·서버·클래스·판매자 설명 포함
-- 스크린샷 이미지: 바로템 거래완료 페이지 전체 캡처
-  (파일명이 같고 확장자만 다른 것이 같은 상품임)
+한 번에 상품 3개분 파일을 제공한다. (최대 5개까지 가능)
+  - 텍스트 3개: 거래번호·거래완료가·서버·클래스·조회수·인증상태·판매자 설명 포함
+  - 이미지 3개: 바로템 거래완료 페이지 전체 스크롤 캡처
+
+파일명 규칙: 파일명이 같고 확장자만 다른 것이 같은 상품이다.
+  예) 260309_brt_0001.txt + 260309_brt_0001.png → 상품 1번
+      260309_brt_0002.txt + 260309_brt_0002.png → 상품 2번
+      260309_brt_0003.txt + 260309_brt_0003.png → 상품 3번
 
 <span class="hl-blue">[이미지 분석 원칙 — 반드시 준수]</span>
 이미지는 바로템 거래완료 페이지를 전체 스크롤 캡처한 것이다.
@@ -425,10 +460,15 @@
 
 <span class="hl-amber">◆ 1. 거래 기본 정보</span>
 - 파일명:
+- 상품 제목: (판매자 작성 제목 원문)
+- 거래번호: (바로템 고유 거래번호)
 - 거래완료가:
+- 조회수(본사람):
 - 서버:
 - 클래스:
 - 레벨:
+- 구매경로: (바로템 구매·직거래 등)
+- 인증상태: (신분증/휴대폰/계좌 — 각각 인증·미인증)
 - 수집일:
 - 출처: 바로템
 
@@ -467,10 +507,19 @@
 2. 모든 항목을 빠짐없이 채울 것. 빈칸 금지.
 3. 여러 계정이면 번호를 붙여 반복 출력.
 4. 전설스킬(전스)과 신화스킬(신스)은 반드시 구분. 혼동 금지.
-5. 마지막에 전체 계정 요약 테이블을 출력.
+5. 분석 완료 후 반드시 저장용 테이블을 출력한다.
 
-<span class="hl-blue">[전체 요약 테이블 형식]</span>
-| 번호 | 파일명 | 클래스 | 서버 | 레벨 | 변신 | 인형 | 성물 | 이동악세 | 문양 | 신화스킬 | 스펙점수 | 거래완료가 | 가격라벨 | 가치라벨 | 판단결론 |</div>
+<span class="hl-blue">[저장 규칙 — 분석할 때마다 즉시 저장]</span>
+분석 세션이 끊기면 대화창의 내용은 사라질 수 있다.
+반드시 매 분석 후 아래 형식으로 저장용 테이블을 출력한다.
+
+- 출력 위치: 전체 분석 결과 아래 "▶ 저장용 테이블" 섹션으로 분리
+- 출력 형식: 탭(TAB) 구분 텍스트 — 엑셀에 바로 붙여넣기 가능
+- 헤더 규칙: 첫 번째 분석 시에만 헤더 행 출력. 이후에는 데이터 행만 출력.
+- 저장 방법: 아래 테이블 복사 → 엑셀 시트 붙여넣기 → 누적 저장
+
+<span class="hl-blue">[▶ 저장용 테이블 출력 형식 (탭 구분)]</span>
+파일명	상품제목	거래번호	거래완료가	조회수	서버	클래스	레벨	구매경로	인증상태	변신등급	변신각성	인형등급	인형각성	성물등급	성물각성	이동악세	각인	문양	신화스킬	전설스킬	컬렉션	부캐	스펙점수	가격라벨	가치라벨	한줄분석	스펙평가	활용가능성	주의사항	판단결론	특이사항	수집일	출처</div>
     </div>
   </div>
 
@@ -483,10 +532,15 @@
       <thead><tr><th>구분</th><th>컬럼명</th><th>예시값</th><th>용도</th></tr></thead>
       <tbody>
         <tr><td><span class="tag t-gray">기본</span></td><td>파일명</td><td>260309_brt_0001</td><td>원본 파일 추적</td></tr>
+        <tr><td><span class="tag t-gray">기본</span></td><td>상품제목</td><td>1티어 3종 전설 3전스7영스 다엘...</td><td>판매자 작성 제목 원문</td></tr>
+        <tr><td><span class="tag t-gray">기본</span></td><td>거래번호</td><td>32204361</td><td>바로템 고유 번호</td></tr>
         <tr><td><span class="tag t-gray">기본</span></td><td>거래완료가</td><td>650000</td><td>시세 기준값</td></tr>
+        <tr><td><span class="tag t-gray">기본</span></td><td>조회수(본사람)</td><td>185</td><td>수요 참고 지표</td></tr>
         <tr><td><span class="tag t-gray">기본</span></td><td>서버</td><td>진기르타스01</td><td>비교군 분류</td></tr>
         <tr><td><span class="tag t-gray">기본</span></td><td>클래스</td><td>다크엘프</td><td>비교군 분류</td></tr>
         <tr><td><span class="tag t-gray">기본</span></td><td>레벨</td><td>89</td><td>비교군 분류</td></tr>
+        <tr><td><span class="tag t-gray">기본</span></td><td>구매경로</td><td>바로템 구매</td><td>거래 신뢰도 참고</td></tr>
+        <tr><td><span class="tag t-gray">기본</span></td><td>인증상태</td><td>미인증/인증/인증</td><td>신분증·휴대폰·계좌 순</td></tr>
         <tr><td><span class="tag t-gray">기본</span></td><td>수집일</td><td>2026.03.09</td><td>시세 시계열</td></tr>
         <tr><td><span class="tag t-blue">스펙</span></td><td>변신등급 / 변신각성</td><td>전설 / 불명</td><td>스펙 점수</td></tr>
         <tr><td><span class="tag t-blue">스펙</span></td><td>인형등급 / 인형각성</td><td>전설 / 불명</td><td>스펙 점수</td></tr>
