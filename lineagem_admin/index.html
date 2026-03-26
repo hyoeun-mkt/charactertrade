@@ -1250,9 +1250,30 @@ function lvRow(r){
     <td onclick="event.stopPropagation()" style="white-space:nowrap">
       <button class="btn bg bsm" onclick="openLVDet('${r.id||r.거래번호}')">분석</button>
       <button class="btn bpub bsm" style="margin-left:3px" onclick="openAssign('${r.id||r.거래번호}')">배정</button>
+      <button class="btn bred bsm" style="margin-left:3px" onclick="deleteLV('${r.id||r.거래번호}')">삭제</button>
     </td></tr>`;
 }
 let curLVGF='all';
+
+// ── 판매중 상품 삭제 ──────────────────────────────────
+function deleteLV(id){
+  if(!confirm('이 상품을 삭제하시겠습니까?')) return;
+  const idx = LIVE.findIndex(r => (r.id||String(r.거래번호)) === String(id));
+  if(idx === -1){ showN('err','❌ 상품을 찾을 수 없습니다'); return; }
+  const r = LIVE[idx];
+  // 슬롯에 배정된 상품이면 슬롯도 비우기
+  Object.keys(SLOTS).forEach(sk=>{
+    const s = SLOTS[sk];
+    if(s && (s.id||String(s.거래번호)) === String(id)) SLOTS[sk] = null;
+  });
+  LIVE.splice(idx, 1);
+  updSb();
+  applyLV();
+  renderDash();
+  renderSlots();
+  saveToLocal();
+  showN('ok', `✅ ${r.sv||r.서버} · ${r.cl||r.클래스} 삭제 완료`);
+}
 function sbGrade(g,el){
   curLVGF=g;
   document.querySelectorAll('.sbi').forEach(i=>i.classList.remove('on'));
