@@ -229,6 +229,135 @@ th.no-sort{cursor:default}
 .g-ri{display:flex;align-items:flex-start;gap:5px;font-size:12px;margin-bottom:5px;color:var(--t2)}
 .g-ri strong{color:var(--t1)}
 
+
+/* ══════════════════════════════════════════
+   반응형 (모바일/태블릿)
+   ══════════════════════════════════════════ */
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+  /* NAV */
+  .nav { padding: 0 10px; height: auto; min-height: 50px; flex-wrap: wrap; gap: 0; }
+  .nav-brand { font-size: 13px; margin-right: 10px; padding: 8px 0; }
+  .nav-tabs { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding: 4px 0 6px; border-top: 1px solid var(--border2); gap: 2px; flex-wrap: nowrap; }
+  .nt { padding: 5px 10px; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .nav-r { padding: 4px 0 6px; gap: 5px; flex-wrap: wrap; }
+  .chip { font-size: 10px; padding: 2px 7px; }
+
+  /* LAYOUT: 사이드바 숨김 */
+  .sidebar { display: none; }
+  .layout { height: auto; min-height: calc(100vh - 90px); }
+  .content { padding: 12px; }
+
+  /* KPI 카드: 2열 */
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+
+  /* 플로우: 세로 */
+  .flow { grid-template-columns: 1fr; gap: 6px; }
+  .farr { transform: rotate(90deg); text-align: center; }
+
+  /* 인사이트 슬롯: 1열 */
+  .slots { grid-template-columns: 1fr; gap: 8px; }
+  .ins-prev { padding: 12px; }
+
+  /* 폼 그리드: 1열 */
+  .fg3 { grid-template-columns: 1fr 1fr; }
+  .fg4 { grid-template-columns: 1fr 1fr; }
+  .kpi-form { grid-template-columns: 1fr 1fr; }
+
+  /* 이용안내 */
+  .guide-grid { grid-template-columns: 1fr; }
+  .g-grade-row { grid-template-columns: repeat(3, 1fr); }
+  .g-rule-row { grid-template-columns: 1fr; gap: 10px; }
+  .g-flow-row { gap: 3px; }
+  .g-flow-step { min-width: 80px; padding: 7px 8px; }
+
+  /* 대시보드 */
+  .dash-overview { grid-template-columns: 1fr !important; }
+
+  /* 테이블: 가로 스크롤 */
+  .panel { overflow-x: auto; }
+  table { min-width: 600px; }
+  td, th { padding: 6px 8px; font-size: 11px; }
+
+  /* 모달 */
+  .mo-box { width: 96vw; max-height: 92vh; border-radius: 12px; }
+  .mo-bd { padding: 14px 16px; }
+  .mo-g { grid-template-columns: 1fr; }
+
+  /* 버튼 */
+  .btn { padding: 5px 10px; font-size: 11px; }
+  .bsm { padding: 3px 7px; font-size: 10px; }
+
+  /* 시세 기준값 요약 카드 */
+  #bench-summary { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* 필터바 */
+  .fb { gap: 5px; }
+  .fb input { width: 120px; }
+  .fb select { font-size: 11px; }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .nav-brand { font-size: 12px; }
+  .nt { font-size: 10px; padding: 4px 8px; }
+
+  /* KPI: 2열 유지하되 작게 */
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 5px; }
+  .kpi-v { font-size: 18px; }
+  .kpi-l { font-size: 10px; }
+
+  /* 폼: 전부 1열 */
+  .fg3 { grid-template-columns: 1fr; }
+  .fg4 { grid-template-columns: 1fr 1fr; }
+
+  /* 등급 카드: 2열 */
+  .g-grade-row { grid-template-columns: repeat(2, 1fr); }
+
+  /* 이용안내 플로우 */
+  .g-flow-step { min-width: 70px; font-size: 10px; }
+  .g-flow-tt { font-size: 11px; }
+  .g-flow-ss { font-size: 10px; }
+
+  /* 테이블 */
+  table { min-width: 480px; }
+  td, th { padding: 5px 6px; font-size: 10px; }
+
+  .content { padding: 8px; }
+
+  /* 시세 요약 */
+  #bench-summary { grid-template-columns: 1fr 1fr !important; }
+}
+
+
+/* 모바일 하단 탭바 */
+.mobile-tabbar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  z-index: 150;
+  padding: 6px 4px;
+  gap: 2px;
+  justify-content: space-around;
+}
+.mb-tab {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 4px 6px; border-radius: var(--radius); cursor: pointer;
+  font-size: 9px; font-weight: 600; color: var(--t2);
+  border: none; background: none; font-family: inherit; flex: 1;
+  transition: .12s;
+}
+.mb-tab:hover, .mb-tab.on { color: var(--accent); background: rgba(88,166,255,.1); }
+.mb-tab-ico { font-size: 16px; line-height: 1; }
+@media (max-width: 768px) {
+  .mobile-tabbar { display: flex; }
+  .content { padding-bottom: 70px; }
+}
+
 </style>
 </head>
 <body>
@@ -1596,6 +1725,12 @@ function gp(id){
   document.querySelectorAll('.nt').forEach(t=>t.classList.remove('on'));
   const m={guide:0,dash:1,closed:2,bench:3,live:4,insight:5,report:6,kpi:7};
   document.querySelectorAll('.nt')[m[id]]?.classList.add('on');
+  // 모바일 하단 탭바 활성화
+  document.querySelectorAll('.mb-tab').forEach(t=>t.classList.remove('on'));
+  const mbMap={guide:0,dash:1,closed:2,live:3,insight:4,kpi:5};
+  if(mbMap[id]!==undefined) document.querySelectorAll('.mb-tab')[mbMap[id]]?.classList.add('on');
+  // 페이지 최상단 스크롤
+  document.querySelector('.content')?.scrollTo(0,0);
 }
 function cmo(id){document.getElementById(id).style.display='none';}
 document.addEventListener('keydown',e=>{
@@ -1693,5 +1828,16 @@ function init(){
 }
 init();
 </script>
+
+<!-- 모바일 하단 탭바 -->
+<div class="mobile-tabbar">
+  <button class="mb-tab" onclick="gp('guide')"><span class="mb-tab-ico">📖</span>안내</button>
+  <button class="mb-tab on" onclick="gp('dash')"><span class="mb-tab-ico">📊</span>대시보드</button>
+  <button class="mb-tab" onclick="gp('closed')"><span class="mb-tab-ico">📋</span>거래완료</button>
+  <button class="mb-tab" onclick="gp('live')"><span class="mb-tab-ico">🛒</span>판매중</button>
+  <button class="mb-tab" onclick="gp('insight')"><span class="mb-tab-ico">✨</span>인사이트</button>
+  <button class="mb-tab" onclick="gp('kpi')"><span class="mb-tab-ico">📊</span>KPI</button>
+</div>
+
 </body>
 </html>
