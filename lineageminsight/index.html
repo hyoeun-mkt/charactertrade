@@ -84,7 +84,6 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'ss03';
     letter-spacing: -0.011em;
     text-rendering: optimizeLegibility;
 }
@@ -217,22 +216,19 @@ body {
 .cover-stat:nth-child(4) { border-top-color: var(--secondary); }
 
 .cover-stat-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 12px;
+    letter-spacing: 0;
     color: var(--muted);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    font-weight: 700;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .cover-stat-value {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 800;
     line-height: 1.1;
     color: var(--ink);
     margin-bottom: 4px;
-    font-variant-numeric: tabular-nums;
     letter-spacing: -0.025em;
 }
 
@@ -413,10 +409,10 @@ body {
 }
 
 .toc-text {
-    font-size: 15.5px;
+    font-size: 14px;
     flex: 1;
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
     color: var(--ink);
     line-height: 1.5;
 }
