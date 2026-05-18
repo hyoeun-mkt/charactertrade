@@ -5,10 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>리니지M 인사이트 추천 시스템 — 1차 데이터 검증 보고서</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Pretendard Variable - 공식 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<!-- 백업 폰트 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
     /* Background system */
@@ -65,8 +70,8 @@
     --shadow-lg: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.05);
 
     /* Fonts */
-    --sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    --mono: 'JetBrains Mono', 'D2Coding', monospace;
+    --sans: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    --mono: 'JetBrains Mono', 'D2Coding', 'Consolas', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,7 +84,9 @@ body {
     line-height: 1.7;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: 'tnum';
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    text-rendering: optimizeLegibility;
 }
 
 .doc {
@@ -210,9 +217,9 @@ body {
 .cover-stat:nth-child(4) { border-top-color: var(--secondary); }
 
 .cover-stat-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-family: var(--sans);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
     color: var(--muted);
     margin-bottom: 6px;
     text-transform: uppercase;
@@ -220,12 +227,12 @@ body {
 }
 
 .cover-stat-value {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 800;
     line-height: 1.1;
     color: var(--ink);
     margin-bottom: 4px;
-    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
 }
 
 .cover-stat-sub {
@@ -348,9 +355,9 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.08em;
     color: var(--primary);
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -388,18 +395,20 @@ body {
 }
 
 .toc-num {
-    font-family: var(--mono);
-    font-size: 11px;
+    font-family: var(--sans);
+    font-size: 13px;
     color: var(--primary);
     font-weight: 700;
-    min-width: 36px;
-    letter-spacing: 0.05em;
+    min-width: 40px;
+    letter-spacing: 0.02em;
 }
 
 .toc-text {
-    font-size: 14px;
+    font-size: 15px;
     flex: 1;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
 }
 
 /* ============ SECTION ============ */
@@ -550,12 +559,12 @@ footer .warning { color: #fbbf24 !important; }
 .stat.gold     { border-top-color: var(--accent-gold); }
 
 .stat-label {
-    font-size: 11px;
+    font-size: 11.5px;
     color: var(--muted);
     margin-bottom: 6px;
     font-weight: 600;
-    font-family: var(--mono);
-    letter-spacing: 0.05em;
+    font-family: var(--sans);
+    letter-spacing: 0.03em;
     text-transform: uppercase;
 }
 
@@ -565,8 +574,7 @@ footer .warning { color: #fbbf24 !important; }
     color: var(--ink);
     line-height: 1.1;
     margin-bottom: 4px;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
 }
 
 .stat-value.sm { font-size: 22px; }
@@ -1623,12 +1631,16 @@ footer {
     <!-- 핵심 결론 박스 -->
     <div class="cover-summary">
         <div class="cover-summary-label">EXECUTIVE SUMMARY · 1차 결론</div>
-        <h2>매니아 인사이트 상품(3슬롯) 운영 즉시 시작 가능</h2>
+        <h2>데이터 검증 완료 · 아이템매니아 판매중 매물 수집 후 운영 시작 가능</h2>
         <p>
             데포 서버 4대 클래스(뇌신·마검사·마법사·총사) × 91레벨 기준으로 일일 인사이트 상품 3슬롯
-            (저평가 / 적정가 / 고가)을 운영할 수 있는 데이터 기반이 확보되었습니다.
+            (저평가 / 적정가 / 고가)을 운영할 수 있는 <strong>데이터 검증 단계는 완료</strong>되었습니다.
             가격 기반 시세 분류는 <strong>2,454건 100% 분류 성공</strong>이며,
             96개 유효 그룹(통합 HTML 시점 24개의 4배)이 산출되었습니다.
+        </p>
+        <p>
+            단, 인사이트 상품으로 게시할 <strong>아이템매니아 판매중 매물 수집 채널 확보가 운영 시작의 마지막 전제 조건</strong>입니다.
+            수집 채널 확보 시점에 데포 4대 클래스 운영 즉시 시작 가능합니다.
         </p>
         <p>
             <strong>매니아가 쏜다 혜택 프로그램</strong>은 별도 트랙으로, 스펙 입력 의무화 이후 활성화 권장.
@@ -1647,7 +1659,7 @@ footer {
         </div>
         <div class="cover-info-item">
             <div class="cover-info-label">최종 권고</div>
-            <div class="cover-info-value" style="color:var(--positive);">GO · 트랙 A 즉시 시작</div>
+            <div class="cover-info-value" style="color:var(--positive);">GO · 수집 채널 확보 후 시작</div>
         </div>
     </div>
 </header>
@@ -2624,8 +2636,8 @@ footer {
         </div>
         <div class="matrix-row">
             <div class="matrix-label">아이템매니아 판매중 매물 즉시 도입</div>
-            <div class="matrix-status"><span class="badge badge-no">NO</span></div>
-            <div class="matrix-detail">바로템(외부) 거래완료만 보유. 아이템매니아 판매중 매물 수집 채널 구축 필요</div>
+            <div class="matrix-status"><span class="badge badge-cond">전제 조건</span></div>
+            <div class="matrix-detail">바로템(외부) 거래완료만 보유. 아이템매니아 판매중 매물 수집 채널 확보가 운영 시작의 마지막 전제</div>
         </div>
         <div class="matrix-row">
             <div class="matrix-label">아이템매니아 자사 시세 분석</div>
@@ -2638,9 +2650,15 @@ footer {
         <div class="callout-label">최종 권고</div>
         <h4>매니아 인사이트 상품 트랙 A 즉시 시작 / 매니아가 쏜다 트랙 B 단계적 활성화</h4>
         <p>
-            현재 데이터로 매니아 인사이트 상품 운영은 즉시 시작 가능합니다.
-            데포 서버 4대 클래스 × 91레벨에서 일일 3슬롯 운영을 시작하되,
+            매니아 인사이트 상품 운영을 위한 <strong>데이터 검증 단계는 완료</strong>되었습니다.
+            데포 서버 4대 클래스 × 91레벨에서 일일 3슬롯 운영을 시작할 수 있으며,
             매물 특성에 따라 HOT · 고스펙 · 안정형 등 라벨을 가격 슬롯과 독립적으로 부여합니다.
+        </p>
+        <p>
+            <strong style="color:var(--danger);">운영 시작의 마지막 전제 조건:</strong>
+            인사이트 상품으로 게시할 <strong>아이템매니아 판매중 매물 수집 채널</strong>이 확보되어야 합니다.
+            현재 보유 데이터는 시세 잣대용 바로템(외부) 거래완료 데이터이며, 추천 대상이 될 자사 판매중 매물은 별도 수집 채널 구축이 필요합니다.
+            <strong>수집 채널 확보 시점에 데포 4대 클래스 운영 즉시 시작 가능합니다.</strong>
         </p>
         <p>
             매니아가 쏜다 혜택 프로그램은 별도 트랙입니다. 매물 등록 폼 스펙 의무화 + 30일 이상 데이터 누적 후
@@ -2653,7 +2671,7 @@ footer {
             자사 데이터까지 확보되면 정확도가 크게 향상되고 매니아가 쏜다 트랙 B 조기 활성화도 가능합니다.
         </p>
         <p style="margin-top:14px; font-weight:600; color:var(--positive); font-size:15px;">
-            결론: 리스크 없는 단계적 시작이 가능합니다.
+            결론: 데이터 검증 단계 완료. 아이템매니아 판매중 매물 수집 시점에 데포 4대 클래스 운영 즉시 시작 가능합니다.
         </p>
     </div>
 </section>
